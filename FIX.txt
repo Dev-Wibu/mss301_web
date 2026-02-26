@@ -1,0 +1,12 @@
+| Cypress               | E2E testing          | ⚠️ **Nên thêm** (cho testing) 
+
+| Vitest UI             | Test UI              | ⚠️ **Nên thêm** (cho testing)   
+
+NX chưa có, thêm nx hoặc công cụ chạy lệnh
+
+
+Update là dung post luôn không dung put
+
+Question crud
+
+Major crud
