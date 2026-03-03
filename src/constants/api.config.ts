@@ -1,6 +1,98 @@
-// API Endpoints Configuration
-// Add project-specific API endpoints here
-// Example:
-// export const API_ENDPOINTS = {
-//   AUTH: { LOGIN: "/auth/login", SIGNUP: "/auth/signup" },
-// };
+export const BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+
+export const API_ENDPOINTS = {
+  AUTH: {
+    LOGIN: "/auth/login",
+    REGISTER: "/auth/register",
+    FORGOT_PASSWORD: "/auth/forgot-password",
+    RESET_PASSWORD: "/auth/reset-password",
+    GOOGLE: "/auth/google",
+    REFRESH: "/auth/refresh",
+    LOGOUT: "/auth/logout",
+  },
+  PRODUCTS: {
+    LIST: "/products",
+    DETAIL: (slug: string) => `/products/${slug}`,
+    CREATE: "/products",
+    UPDATE: (id: number) => `/products/${id}`,
+    DELETE: (id: number) => `/products/${id}`,
+    FLASH_SALE: "/products/flash-sale",
+    FEATURED: "/products/featured",
+  },
+  CATEGORIES: {
+    LIST: "/categories",
+    DETAIL: (id: number) => `/categories/${id}`,
+    CREATE: "/categories",
+    UPDATE: (id: number) => `/categories/${id}`,
+    DELETE: (id: number) => `/categories/${id}`,
+  },
+  CART: {
+    GET: "/cart",
+    ADD: "/cart/items",
+    UPDATE: (itemId: number) => `/cart/items/${itemId}`,
+    REMOVE: (itemId: number) => `/cart/items/${itemId}`,
+    CLEAR: "/cart/clear",
+    APPLY_VOUCHER: "/cart/voucher",
+    REMOVE_VOUCHER: "/cart/voucher",
+  },
+  ORDERS: {
+    LIST: "/orders",
+    CREATE: "/orders",
+    DETAIL: (id: number) => `/orders/${id}`,
+    CANCEL: (id: number) => `/orders/${id}/cancel`,
+    RETURN: (id: number) => `/orders/${id}/return`,
+    UPDATE_STATUS: (id: number) => `/orders/${id}/status`,
+    ALL: "/admin/orders",
+  },
+  PAYMENTS: {
+    INITIATE: "/payments/initiate",
+    VERIFY: (transactionId: string) => `/payments/verify/${transactionId}`,
+  },
+  USERS: {
+    PROFILE: "/users/me",
+    UPDATE_PROFILE: "/users/me",
+    CHANGE_PASSWORD: "/users/me/password",
+    UPLOAD_AVATAR: "/users/me/avatar",
+    ADDRESSES: "/users/me/addresses",
+    ADDRESS_DETAIL: (id: number) => `/users/me/addresses/${id}`,
+    ALL: "/admin/users",
+    DETAIL: (id: number) => `/admin/users/${id}`,
+    UPDATE_STATUS: (id: number) => `/admin/users/${id}/status`,
+    UPDATE_ROLE: (id: number) => `/admin/users/${id}/role`,
+  },
+  REVIEWS: {
+    LIST: (productId: number) => `/products/${productId}/reviews`,
+    CREATE: (productId: number) => `/products/${productId}/reviews`,
+    MARK_HELPFUL: (reviewId: number) => `/reviews/${reviewId}/helpful`,
+    UPLOAD_IMAGES: "/reviews/images",
+    ALL: "/admin/reviews",
+    DELETE: (id: number) => `/admin/reviews/${id}`,
+  },
+  PROMOTIONS: {
+    LIST: "/promotions",
+    FLASH_SALES: "/promotions/flash-sales",
+    VOUCHERS: "/promotions/vouchers",
+    VALIDATE_VOUCHER: "/promotions/vouchers/validate",
+    CREATE: "/promotions",
+    UPDATE: (id: number) => `/promotions/${id}`,
+    DELETE: (id: number) => `/promotions/${id}`,
+  },
+  MEMBERSHIP: {
+    INFO: "/membership",
+    REDEEM: "/membership/redeem",
+  },
+  REPORTS: {
+    DASHBOARD_KPI: "/admin/reports/kpi",
+    REVENUE: "/admin/reports/revenue",
+    PRODUCTS: "/admin/reports/products",
+    CATEGORIES: "/admin/reports/categories",
+    USERS: "/admin/reports/users",
+  },
+  FEEDBACK: {
+    LIST: "/staff/feedback",
+    DETAIL: (id: number) => `/staff/feedback/${id}`,
+    REPLY: (id: number) => `/staff/feedback/${id}/reply`,
+    RESOLVE: (id: number) => `/staff/feedback/${id}/resolve`,
+  },
+};
