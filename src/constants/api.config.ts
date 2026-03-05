@@ -1,5 +1,5 @@
 export const BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
 export const API_ENDPOINTS = {
   AUTH: {
@@ -12,16 +12,16 @@ export const API_ENDPOINTS = {
     LOGOUT: "/auth/logout",
   },
   PRODUCTS: {
-    LIST: "/products",
-    DETAIL: (slug: string) => `/products/${slug}`,
+    LIST: "/api/products/product/active",
+    DETAIL: (id: string | number) => `/api/products/product/${id}`,
     CREATE: "/products",
     UPDATE: (id: number) => `/products/${id}`,
     DELETE: (id: number) => `/products/${id}`,
-    FLASH_SALE: "/products/flash-sale",
-    FEATURED: "/products/featured",
+    FLASH_SALE: "/api/products/product/active",
+    FEATURED: "/api/products/product/active",
   },
   CATEGORIES: {
-    LIST: "/categories",
+    LIST: "/api/products/categories",
     DETAIL: (id: number) => `/categories/${id}`,
     CREATE: "/categories",
     UPDATE: (id: number) => `/categories/${id}`,

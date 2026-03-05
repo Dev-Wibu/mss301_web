@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import { ROUTES } from "@/router/routes.const";
+import type { Product } from "@/interfaces/product.types";
 
 function CountdownTimer({ endAt }: { endAt: string }) {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -70,17 +71,28 @@ export function HomePage() {
     queryFn: productService.getFeaturedProducts,
   });
 
-  const handleAddToCart = (product: (typeof featuredProducts extends (infer T)[] | undefined ? T : never), variantId: number) => {
-    const variant = product.variants.find((v) => v.id === variantId);
-    if (!variant) return;
+  const handleAddToCart = (product: Product) => {
     addItem({
       id: Date.now(),
       productId: product.id,
-      variantId: variant.id,
-      product: { id: product.id, slug: product.slug, name: product.name, thumbnailUrl: product.thumbnailUrl },
-      variant: { id: variant.id, sku: variant.sku, color: variant.color, size: variant.size, price: variant.price, originalPrice: variant.originalPrice, stockQuantity: variant.stockQuantity },
+      variantId: product.id,
+      product: {
+        id: product.id,
+        slug: product.id.toString(),
+        name: product.name,
+        thumbnailUrl: product.imgUrl,
+      },
+      variant: {
+        id: product.id,
+        sku: `SKU-${product.id}`,
+        color: "Mặc định",
+        size: "Mặc định",
+        price: product.price,
+        originalPrice: product.price,
+        stockQuantity: product.quantity,
+      },
       quantity: 1,
-      subtotal: variant.price,
+      subtotal: product.price,
     });
     toast.success("Đã thêm vào giỏ hàng!");
   };
@@ -91,9 +103,7 @@ export function HomePage() {
       <section className="bg-gradient-to-r from-teal-500 to-teal-600">
         <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-16 text-center text-white md:py-24">
           <Badge className="bg-red-400 text-white">SIÊU SALE</Badge>
-          <h1 className="text-3xl font-bold md:text-5xl">
-            Phụ Kiện Công Nghệ Chính Hãng
-          </h1>
+          <h1 className="text-3xl font-bold md:text-5xl">Phụ Kiện Công Nghệ Chính Hãng</h1>
           <p className="max-w-lg text-teal-100">
             Giảm đến 50% cho hàng nghìn sản phẩm. Giao hàng nhanh toàn quốc.
           </p>
@@ -134,7 +144,9 @@ export function HomePage() {
               <CountdownTimer endAt={flashSaleProducts[0].flashSaleEndAt} />
             )}
           </div>
-          <Link to={ROUTES.PRODUCTS} className="flex items-center gap-1 text-sm text-teal-500 hover:underline">
+          <Link
+            to={ROUTES.PRODUCTS}
+            className="flex items-center gap-1 text-sm text-teal-500 hover:underline">
             Xem tất cả <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -142,13 +154,16 @@ export function HomePage() {
         <div className="flex gap-4 overflow-x-auto pb-4">
           {flashSaleLoading
             ? Array.from({ length: 4 }).map((_, i) => (
-                <div key={i} className="w-56 shrink-0"><ProductCardSkeleton /></div>
+                <div key={i} className="w-56 shrink-0">
+                  <ProductCardSkeleton />
+                </div>
               ))
             : flashSaleProducts?.map((product) => (
                 <div key={product.id} className="w-56 shrink-0">
                   <ProductCard
                     product={product}
-                    onAddToCart={(vid) => handleAddToCart(product, vid)}
+                    // ĐÃ SỬA: Bỏ truyền vid vì không còn biến thể
+                    onAddToCart={() => handleAddToCart(product)}
                     isWishlisted={isInWishlist(product.id)}
                     onToggleWishlist={toggleWishlist}
                   />
@@ -161,7 +176,9 @@ export function HomePage() {
       <section className="container mx-auto px-4">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-bold text-zinc-900">Sản Phẩm Nổi Bật</h2>
-          <Link to={ROUTES.PRODUCTS} className="flex items-center gap-1 text-sm text-teal-500 hover:underline">
+          <Link
+            to={ROUTES.PRODUCTS}
+            className="flex items-center gap-1 text-sm text-teal-500 hover:underline">
             Xem tất cả <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -173,7 +190,7 @@ export function HomePage() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  onAddToCart={(vid) => handleAddToCart(product, vid)}
+                  onAddToCart={() => handleAddToCart(product)}
                   isWishlisted={isInWishlist(product.id)}
                   onToggleWishlist={toggleWishlist}
                 />
@@ -185,18 +202,14 @@ export function HomePage() {
       <section className="bg-teal-600">
         <div className="container mx-auto px-4 py-12 text-center text-white">
           <h2 className="text-2xl font-bold">Đăng ký nhận tin</h2>
-          <p className="mt-2 text-teal-100">
-            Nhận thông tin khuyến mãi và sản phẩm mới nhất
-          </p>
+          <p className="mt-2 text-teal-100">Nhận thông tin khuyến mãi và sản phẩm mới nhất</p>
           <div className="mx-auto mt-6 flex max-w-md gap-2">
             <input
               type="email"
               placeholder="Email của bạn"
               className="flex-1 rounded-lg border-0 px-4 py-2.5 text-sm text-zinc-900 placeholder:text-gray-400"
             />
-            <Button className="bg-white text-teal-600 hover:bg-gray-100">
-              Đăng ký
-            </Button>
+            <Button className="bg-white text-teal-600 hover:bg-gray-100">Đăng ký</Button>
           </div>
         </div>
       </section>

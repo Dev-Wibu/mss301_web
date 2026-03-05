@@ -5,23 +5,18 @@ import { apiClient } from "@/lib/api";
 import { API_ENDPOINTS } from "@/constants/api.config";
 
 export const categoryService = {
-  getCategories: async (): Promise<Category[]> => {
+  getCategories: async (): Promise<any[]> => {
+    // Tạm thời nếu vẫn còn code Mock cũ thì chặn nó lại
     if (USE_MOCK_API) {
-      await new Promise((r) => setTimeout(r, 300));
-      return mockCategories;
+      return []; 
     }
-    const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.LIST);
-    return response.data.data;
-  },
-
-  getCategoryBySlug: async (slug: string): Promise<Category> => {
-    if (USE_MOCK_API) {
-      await new Promise((r) => setTimeout(r, 200));
-      const category = mockCategories.find((c) => c.slug === slug);
-      if (!category) throw new Error("Danh mục không tồn tại");
-      return category;
+    try {
+      // Đường dẫn API_ENDPOINTS.CATEGORIES.LIST lúc nãy mình đã thêm là "/api/products/categories"
+      const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.LIST);
+      return response.data; 
+    } catch (error) {
+      console.error("Lỗi khi tải danh mục:", error);
+      return [];
     }
-    const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.DETAIL(0));
-    return response.data.data;
   },
 };

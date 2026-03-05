@@ -1,9 +1,12 @@
 export function formatVND(amount: number): string {
-  return amount.toLocaleString("vi-VN") + "đ";
+  if (amount === undefined || amount === null || isNaN(amount)) {
+    return "0 ₫";
+  }
+  return amount.toLocaleString("vi-VN", { style: "currency", currency: "VND" });
 }
 
 export function calculateDiscountPercent(
-  original: number,
+  original: number, 
   sale: number,
 ): number {
   if (original <= 0) return 0;
