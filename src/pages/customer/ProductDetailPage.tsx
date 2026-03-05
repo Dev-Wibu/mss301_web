@@ -58,7 +58,9 @@ export function ProductDetailPage() {
     return (
       <div className="container mx-auto px-4 py-16 text-center">
         <p className="text-lg text-gray-500">Sản phẩm không tồn tại</p>
-        <Button asChild className="mt-4"><Link to="/products">Quay lại</Link></Button>
+        <Button asChild className="mt-4">
+          <Link to="/products">Quay lại</Link>
+        </Button>
       </div>
     );
   }
@@ -73,8 +75,21 @@ export function ProductDetailPage() {
       id: Date.now(),
       productId: product.id,
       variantId: selectedVariant.id,
-      product: { id: product.id, slug: product.slug, name: product.name, thumbnailUrl: product.thumbnailUrl },
-      variant: { id: selectedVariant.id, sku: selectedVariant.sku, color: selectedVariant.color, size: selectedVariant.size, price: selectedVariant.price, originalPrice: selectedVariant.originalPrice, stockQuantity: selectedVariant.stockQuantity },
+      product: {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        thumbnailUrl: product.thumbnailUrl,
+      },
+      variant: {
+        id: selectedVariant.id,
+        sku: selectedVariant.sku,
+        color: selectedVariant.color,
+        size: selectedVariant.size,
+        price: selectedVariant.price,
+        originalPrice: selectedVariant.originalPrice,
+        stockQuantity: selectedVariant.stockQuantity,
+      },
       quantity,
       subtotal: selectedVariant.price * quantity,
     });
@@ -85,7 +100,9 @@ export function ProductDetailPage() {
     <div className="container mx-auto px-4 py-8">
       {/* Breadcrumb */}
       <nav className="mb-6 text-sm text-gray-500">
-        <Link to="/" className="hover:text-teal-500">Trang chủ</Link>
+        <Link to="/" className="hover:text-teal-500">
+          Trang chủ
+        </Link>
         <span className="mx-2">/</span>
         <Link to={`/category/${product.category.slug}`} className="hover:text-teal-500">
           {product.category.name}
@@ -147,8 +164,7 @@ export function ProductDetailPage() {
                       (selectedVariant?.id || product.variants[0].id) === variant.id
                         ? "border-teal-500 bg-teal-50 text-teal-700"
                         : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
+                    }`}>
                     {[variant.color, variant.size].filter(Boolean).join(" - ")}
                   </button>
                 ))}
@@ -158,7 +174,8 @@ export function ProductDetailPage() {
 
           {/* Stock */}
           {selectedVariant && (
-            <p className={`text-sm ${selectedVariant.stockQuantity > 0 ? "text-green-600" : "text-gray-400"}`}>
+            <p
+              className={`text-sm ${selectedVariant.stockQuantity > 0 ? "text-green-600" : "text-gray-400"}`}>
               {selectedVariant.stockQuantity > 0
                 ? `Còn hàng (${selectedVariant.stockQuantity} sản phẩm)`
                 : "Hết hàng"}
@@ -178,16 +195,11 @@ export function ProductDetailPage() {
             <Button
               className="flex-1 bg-teal-500 hover:bg-teal-600"
               onClick={handleAddToCart}
-              disabled={!selectedVariant || selectedVariant.stockQuantity === 0}
-            >
+              disabled={!selectedVariant || selectedVariant.stockQuantity === 0}>
               <ShoppingCart className="mr-2 h-4 w-4" />
               Thêm vào giỏ hàng
             </Button>
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => toggleWishlist(product.id)}
-            >
+            <Button variant="outline" size="icon" onClick={() => toggleWishlist(product.id)}>
               <Heart
                 className={`h-5 w-5 ${isInWishlist(product.id) ? "fill-teal-500 text-teal-500" : ""}`}
               />
@@ -208,9 +220,7 @@ export function ProductDetailPage() {
         <TabsList>
           <TabsTrigger value="description">Mô tả</TabsTrigger>
           <TabsTrigger value="specs">Thông số</TabsTrigger>
-          <TabsTrigger value="reviews">
-            Đánh giá ({product.reviewCount})
-          </TabsTrigger>
+          <TabsTrigger value="reviews">Đánh giá ({product.reviewCount})</TabsTrigger>
         </TabsList>
 
         <TabsContent value="description" className="prose max-w-none">
@@ -239,9 +249,7 @@ export function ProductDetailPage() {
             <ReviewCard key={review.id} review={review} />
           ))}
           {(!reviewData || reviewData.reviews.length === 0) && (
-            <p className="py-8 text-center text-gray-500">
-              Chưa có đánh giá nào cho sản phẩm này
-            </p>
+            <p className="py-8 text-center text-gray-500">Chưa có đánh giá nào cho sản phẩm này</p>
           )}
         </TabsContent>
       </Tabs>

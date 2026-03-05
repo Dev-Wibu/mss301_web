@@ -8,7 +8,7 @@ import { userService } from "@/services/userService";
 import { useAuthStore } from "@/stores/authStore";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export function ProfilePage() {
@@ -29,6 +29,15 @@ export function ProfilePage() {
     fullName: user?.name || "",
     phone: "",
   });
+
+  useEffect(() => {
+    if (profile) {
+      setProfileForm({
+        fullName: profile.fullName || user?.name || "",
+        phone: profile.phone || "",
+      });
+    }
+  }, [profile, user?.name]);
 
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: "",
@@ -81,11 +90,16 @@ export function ProfilePage() {
 
         <TabsContent value="info">
           <Card>
-            <CardHeader><CardTitle>Thông tin cá nhân</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Thông tin cá nhân</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
                 <Label>Họ và tên</Label>
-                <Input value={profileForm.fullName} onChange={(e) => setProfileForm((p) => ({ ...p, fullName: e.target.value }))} />
+                <Input
+                  value={profileForm.fullName}
+                  onChange={(e) => setProfileForm((p) => ({ ...p, fullName: e.target.value }))}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Email</Label>
@@ -93,9 +107,16 @@ export function ProfilePage() {
               </div>
               <div className="space-y-2">
                 <Label>Số điện thoại</Label>
-                <Input value={profileForm.phone} onChange={(e) => setProfileForm((p) => ({ ...p, phone: e.target.value }))} placeholder="0901234567" />
+                <Input
+                  value={profileForm.phone}
+                  onChange={(e) => setProfileForm((p) => ({ ...p, phone: e.target.value }))}
+                  placeholder="0901234567"
+                />
               </div>
-              <Button className="bg-teal-500 hover:bg-teal-600" onClick={handleUpdateProfile} disabled={isUpdating}>
+              <Button
+                className="bg-teal-500 hover:bg-teal-600"
+                onClick={handleUpdateProfile}
+                disabled={isUpdating}>
                 {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Lưu thay đổi
               </Button>
@@ -107,7 +128,9 @@ export function ProfilePage() {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>Địa chỉ giao hàng</CardTitle>
-              <Button size="sm" className="bg-teal-500 hover:bg-teal-600">Thêm địa chỉ</Button>
+              <Button size="sm" className="bg-teal-500 hover:bg-teal-600">
+                Thêm địa chỉ
+              </Button>
             </CardHeader>
             <CardContent className="space-y-3">
               {addresses?.map((addr) => (
@@ -119,21 +142,42 @@ export function ProfilePage() {
 
         <TabsContent value="password">
           <Card>
-            <CardHeader><CardTitle>Đổi mật khẩu</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle>Đổi mật khẩu</CardTitle>
+            </CardHeader>
             <CardContent className="max-w-md space-y-4">
               <div className="space-y-2">
                 <Label>Mật khẩu hiện tại</Label>
-                <Input type="password" value={passwordForm.currentPassword} onChange={(e) => setPasswordForm((p) => ({ ...p, currentPassword: e.target.value }))} />
+                <Input
+                  type="password"
+                  value={passwordForm.currentPassword}
+                  onChange={(e) =>
+                    setPasswordForm((p) => ({ ...p, currentPassword: e.target.value }))
+                  }
+                />
               </div>
               <div className="space-y-2">
                 <Label>Mật khẩu mới</Label>
-                <Input type="password" value={passwordForm.newPassword} onChange={(e) => setPasswordForm((p) => ({ ...p, newPassword: e.target.value }))} />
+                <Input
+                  type="password"
+                  value={passwordForm.newPassword}
+                  onChange={(e) => setPasswordForm((p) => ({ ...p, newPassword: e.target.value }))}
+                />
               </div>
               <div className="space-y-2">
                 <Label>Xác nhận mật khẩu mới</Label>
-                <Input type="password" value={passwordForm.confirmPassword} onChange={(e) => setPasswordForm((p) => ({ ...p, confirmPassword: e.target.value }))} />
+                <Input
+                  type="password"
+                  value={passwordForm.confirmPassword}
+                  onChange={(e) =>
+                    setPasswordForm((p) => ({ ...p, confirmPassword: e.target.value }))
+                  }
+                />
               </div>
-              <Button className="bg-teal-500 hover:bg-teal-600" onClick={handleChangePassword} disabled={isUpdating}>
+              <Button
+                className="bg-teal-500 hover:bg-teal-600"
+                onClick={handleChangePassword}
+                disabled={isUpdating}>
                 {isUpdating && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Cập nhật mật khẩu
               </Button>
