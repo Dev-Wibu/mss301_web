@@ -9,18 +9,10 @@ export const createProductSchema = z.object({
     .string()
     .min(1, "Vui lòng nhập mô tả ngắn")
     .max(200, "Mô tả ngắn tối đa 200 ký tự"),
-  description: z
-    .string()
-    .min(1, "Vui lòng nhập mô tả chi tiết"),
-  categoryId: z
-    .number({ error: "Vui lòng chọn danh mục" })
-    .positive("Vui lòng chọn danh mục"),
-  brandId: z
-    .number({ error: "Vui lòng chọn thương hiệu" })
-    .positive("Vui lòng chọn thương hiệu"),
-  tags: z
-    .string()
-    .optional(),
+  description: z.string().min(1, "Vui lòng nhập mô tả chi tiết"),
+  categoryId: z.number({ error: "Vui lòng chọn danh mục" }).positive("Vui lòng chọn danh mục"),
+  brandId: z.number({ error: "Vui lòng chọn thương hiệu" }).positive("Vui lòng chọn thương hiệu"),
+  tags: z.string().optional(),
   isFlashSale: z.boolean().optional(),
   flashSaleEndAt: z.string().optional(),
 });
@@ -28,17 +20,11 @@ export const createProductSchema = z.object({
 export type CreateProductFormData = z.infer<typeof createProductSchema>;
 
 export const productVariantSchema = z.object({
-  sku: z
-    .string()
-    .min(1, "Vui lòng nhập SKU"),
+  sku: z.string().min(1, "Vui lòng nhập SKU"),
   color: z.string().optional(),
   size: z.string().optional(),
-  price: z
-    .number({ error: "Vui lòng nhập giá bán" })
-    .positive("Giá bán phải lớn hơn 0"),
-  originalPrice: z
-    .number({ error: "Vui lòng nhập giá gốc" })
-    .positive("Giá gốc phải lớn hơn 0"),
+  price: z.number({ error: "Vui lòng nhập giá bán" }).positive("Giá bán phải lớn hơn 0"),
+  originalPrice: z.number({ error: "Vui lòng nhập giá gốc" }).positive("Giá gốc phải lớn hơn 0"),
   stockQuantity: z
     .number({ error: "Vui lòng nhập số lượng tồn kho" })
     .int("Số lượng phải là số nguyên")
