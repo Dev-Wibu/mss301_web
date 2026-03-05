@@ -1,18 +1,11 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { reportService } from "@/services/reportService";
-import { orderService } from "@/services/orderService";
-import { formatVND } from "@/utils/formatPrice";
-import { formatDate } from "@/utils/formatDate";
-import { useQuery } from "@tanstack/react-query";
-import {
-  ArrowDown,
-  ArrowUp,
-  DollarSign,
-  Package,
-  ShoppingCart,
-  Users,
-} from "lucide-react";
 import { OrderStatusBadge } from "@/components/common/OrderStatusBadge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { orderService } from "@/services/orderService";
+import { reportService } from "@/services/reportService";
+import { formatDate } from "@/utils/formatDate";
+import { formatVND } from "@/utils/formatPrice";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowDown, ArrowUp, DollarSign, Package, ShoppingCart, Users } from "lucide-react";
 
 export function DashboardPage() {
   const { data: kpi } = useQuery({
@@ -73,8 +66,13 @@ export function DashboardPage() {
                 <p className="text-sm text-gray-500">{card.title}</p>
                 <p className="text-xl font-bold text-zinc-900">{card.value}</p>
                 {card.growth !== undefined && (
-                  <span className={`inline-flex items-center gap-1 text-xs ${card.growth >= 0 ? "text-green-600" : "text-red-500"}`}>
-                    {card.growth >= 0 ? <ArrowUp className="h-3 w-3" /> : <ArrowDown className="h-3 w-3" />}
+                  <span
+                    className={`inline-flex items-center gap-1 text-xs ${card.growth >= 0 ? "text-green-600" : "text-red-500"}`}>
+                    {card.growth >= 0 ? (
+                      <ArrowUp className="h-3 w-3" />
+                    ) : (
+                      <ArrowDown className="h-3 w-3" />
+                    )}
                     {Math.abs(card.growth)}%
                   </span>
                 )}
@@ -106,7 +104,9 @@ export function DashboardPage() {
                     <td className="py-3 font-medium text-zinc-900">{order.orderCode}</td>
                     <td className="py-3 text-gray-600">{order.shippingInfo.recipientName}</td>
                     <td className="py-3 text-right font-medium">{formatVND(order.total)}</td>
-                    <td className="py-3"><OrderStatusBadge status={order.status} /></td>
+                    <td className="py-3">
+                      <OrderStatusBadge status={order.status} />
+                    </td>
                     <td className="py-3 text-gray-400">{formatDate(order.createdAt)}</td>
                   </tr>
                 ))}
