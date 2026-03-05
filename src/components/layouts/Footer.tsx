@@ -19,33 +19,51 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-zinc-900">
-              Liên kết nhanh
-            </h4>
+            <h4 className="mb-3 text-sm font-semibold text-zinc-900">Liên kết nhanh</h4>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li><Link to={ROUTES.PRODUCTS} className="hover:text-teal-500">Sản phẩm</Link></li>
-              <li><Link to={ROUTES.HOME} className="hover:text-teal-500">Khuyến mãi</Link></li>
-              <li><Link to={ROUTES.HOME} className="hover:text-teal-500">Tin tức</Link></li>
+              <li>
+                <Link to={ROUTES.PRODUCTS} className="hover:text-teal-500">
+                  Sản phẩm
+                </Link>
+              </li>
+              <li>
+                <Link to={ROUTES.HOME} className="hover:text-teal-500">
+                  Khuyến mãi
+                </Link>
+              </li>
+              <li>
+                <Link to={ROUTES.HOME} className="hover:text-teal-500">
+                  Tin tức
+                </Link>
+              </li>
             </ul>
           </div>
 
           {/* Support */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-zinc-900">
-              Hỗ trợ
-            </h4>
+            <h4 className="mb-3 text-sm font-semibold text-zinc-900">Hỗ trợ</h4>
             <ul className="space-y-2 text-sm text-gray-500">
-              <li><a href="#" className="hover:text-teal-500">Hướng dẫn mua hàng</a></li>
-              <li><a href="#" className="hover:text-teal-500">Chính sách đổi trả</a></li>
-              <li><a href="#" className="hover:text-teal-500">Chính sách bảo hành</a></li>
+              <li>
+                <a href="#" className="hover:text-teal-500">
+                  Hướng dẫn mua hàng
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal-500">
+                  Chính sách đổi trả
+                </a>
+              </li>
+              <li>
+                <a href="#" className="hover:text-teal-500">
+                  Chính sách bảo hành
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h4 className="mb-3 text-sm font-semibold text-zinc-900">
-              Liên hệ
-            </h4>
+            <h4 className="mb-3 text-sm font-semibold text-zinc-900">Liên hệ</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li>📞 Hotline: 1900-xxxx</li>
               <li>📧 Email: support@techgear.vn</li>
