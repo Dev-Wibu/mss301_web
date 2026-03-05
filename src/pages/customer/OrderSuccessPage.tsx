@@ -9,7 +9,8 @@ export function OrderSuccessPage() {
       <CheckCircle className="mb-6 h-20 w-20 text-teal-500" />
       <h1 className="text-3xl font-bold text-zinc-900">Đặt hàng thành công!</h1>
       <p className="mt-3 max-w-md text-gray-500">
-        Cảm ơn bạn đã đặt hàng tại TechGear. Chúng tôi sẽ xử lý đơn hàng và thông báo cho bạn sớm nhất.
+        Cảm ơn bạn đã đặt hàng tại TechGear. Chúng tôi sẽ xử lý đơn hàng và thông báo cho bạn sớm
+        nhất.
       </p>
       <p className="mt-2 text-sm text-gray-400">Thời gian giao hàng dự kiến: 2-5 ngày</p>
       <div className="mt-8 flex gap-4">

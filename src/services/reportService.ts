@@ -1,7 +1,7 @@
+import { API_ENDPOINTS } from "@/constants/api.config";
 import { USE_MOCK_API } from "@/constants/app.const";
 import type { DashboardKPI, RevenueReport } from "@/interfaces/report.types";
 import { apiClient } from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api.config";
 
 export const reportService = {
   getDashboardKPI: async (): Promise<DashboardKPI> => {

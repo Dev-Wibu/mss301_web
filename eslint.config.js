@@ -35,6 +35,17 @@ export default defineConfig([
           argsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          vars: "all",
+          args: "after-used",
+          ignoreRestSiblings: false,
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       // Disabled linebreak-style as files use LF (Unix) not CRLF (Windows)
       // "linebreak-style": ["error", "windows"],
     },

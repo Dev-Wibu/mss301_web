@@ -1,11 +1,11 @@
 import { ProductCard } from "@/components/common/ProductCard";
 import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
-import type { Product } from "@/interfaces/product.types";
 import { FLASH_SALE } from "@/constants/app.const";
+import type { Product } from "@/interfaces/product.types";
+import { ROUTES } from "@/router/routes.const";
 import { ArrowRight, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ROUTES } from "@/router/routes.const";
 
 interface FlashSaleSectionProps {
   products: Product[];
@@ -37,16 +37,12 @@ function CountdownTimer({ endAt }: { endAt: string }) {
 
   return (
     <div className="flex gap-1">
-      {[pad(timeLeft.hours), pad(timeLeft.minutes), pad(timeLeft.seconds)].map(
-        (val, i) => (
-          <div key={i} className="flex items-center gap-1">
-            <span className="rounded bg-red-400 px-2 py-1 text-sm font-bold text-white">
-              {val}
-            </span>
-            {i < 2 && <span className="text-sm font-bold text-red-400">:</span>}
-          </div>
-        ),
-      )}
+      {[pad(timeLeft.hours), pad(timeLeft.minutes), pad(timeLeft.seconds)].map((val, i) => (
+        <div key={i} className="flex items-center gap-1">
+          <span className="rounded bg-red-400 px-2 py-1 text-sm font-bold text-white">{val}</span>
+          {i < 2 && <span className="text-sm font-bold text-red-400">:</span>}
+        </div>
+      ))}
     </div>
   );
 }
@@ -69,8 +65,7 @@ export function FlashSaleSection({
         </div>
         <Link
           to={ROUTES.PRODUCTS}
-          className="flex items-center gap-1 text-sm text-teal-500 hover:underline"
-        >
+          className="flex items-center gap-1 text-sm text-teal-500 hover:underline">
           Xem tất cả <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -86,11 +81,7 @@ export function FlashSaleSection({
               <div key={product.id} className="w-56 shrink-0">
                 <ProductCard
                   product={product}
-                  onAddToCart={
-                    onAddToCart
-                      ? (vid) => onAddToCart(product, vid)
-                      : undefined
-                  }
+                  onAddToCart={onAddToCart ? (vid) => onAddToCart(product, vid) : undefined}
                   isWishlisted={isWishlisted?.(product.id)}
                   onToggleWishlist={onToggleWishlist}
                 />

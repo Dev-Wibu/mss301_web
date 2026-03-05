@@ -1,4 +1,4 @@
-import { formatVND, calculateDiscountPercent } from "@/utils/formatPrice";
+import { calculateDiscountPercent, formatVND } from "@/utils/formatPrice";
 
 interface PriceDisplayProps {
   price: number;
@@ -19,9 +19,7 @@ export function PriceDisplay({ price, originalPrice, size = "md" }: PriceDisplay
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <span className={`font-bold text-red-400 ${classes.sale}`}>
-        {formatVND(price)}
-      </span>
+      <span className={`font-bold text-red-400 ${classes.sale}`}>{formatVND(price)}</span>
       {hasDiscount && (
         <>
           <span className={`text-gray-400 line-through ${classes.original}`}>

@@ -24,11 +24,24 @@ export function WishlistPage() {
     const variant = product.variants.find((v) => v.id === variantId);
     if (!variant) return;
     addItem({
-      id: Date.now(),
+      id: variant.id,
       productId: product.id,
       variantId: variant.id,
-      product: { id: product.id, slug: product.slug, name: product.name, thumbnailUrl: product.thumbnailUrl },
-      variant: { id: variant.id, sku: variant.sku, color: variant.color, size: variant.size, price: variant.price, originalPrice: variant.originalPrice, stockQuantity: variant.stockQuantity },
+      product: {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        thumbnailUrl: product.thumbnailUrl,
+      },
+      variant: {
+        id: variant.id,
+        sku: variant.sku,
+        color: variant.color,
+        size: variant.size,
+        price: variant.price,
+        originalPrice: variant.originalPrice,
+        stockQuantity: variant.stockQuantity,
+      },
       quantity: 1,
       subtotal: variant.price,
     });

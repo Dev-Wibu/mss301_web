@@ -1,12 +1,12 @@
 import { OrderStatusBadge } from "@/components/common/OrderStatusBadge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ROUTES } from "@/router/routes.const";
 import { orderService } from "@/services/orderService";
 import { formatDate } from "@/utils/formatDate";
 import { formatVND } from "@/utils/formatPrice";
 import { useQuery } from "@tanstack/react-query";
 import { MessageSquare, Package, Truck } from "lucide-react";
 import { Link } from "react-router-dom";
-import { ROUTES } from "@/router/routes.const";
 
 export function StaffDashboardPage() {
   const { data: orders } = useQuery({
@@ -18,9 +18,27 @@ export function StaffDashboardPage() {
   const shippingCount = orders?.data.filter((o) => o.status === "shipping").length || 0;
 
   const summaryCards = [
-    { title: "Đơn chờ xử lý", value: pendingCount, icon: Package, color: "text-orange-500", bg: "bg-orange-50" },
-    { title: "Đơn đang giao", value: shippingCount, icon: Truck, color: "text-blue-500", bg: "bg-blue-50" },
-    { title: "Phản hồi chưa xử lý", value: 1, icon: MessageSquare, color: "text-red-500", bg: "bg-red-50" },
+    {
+      title: "Đơn chờ xử lý",
+      value: pendingCount,
+      icon: Package,
+      color: "text-orange-500",
+      bg: "bg-orange-50",
+    },
+    {
+      title: "Đơn đang giao",
+      value: shippingCount,
+      icon: Truck,
+      color: "text-blue-500",
+      bg: "bg-blue-50",
+    },
+    {
+      title: "Phản hồi chưa xử lý",
+      value: 1,
+      icon: MessageSquare,
+      color: "text-red-500",
+      bg: "bg-red-50",
+    },
   ];
 
   return (
@@ -68,13 +86,17 @@ export function StaffDashboardPage() {
                 {orders?.data.map((order) => (
                   <tr key={order.id} className="border-b last:border-0">
                     <td className="py-3">
-                      <Link to={`/staff/orders/${order.id}`} className="font-medium text-teal-500 hover:underline">
+                      <Link
+                        to={`/staff/orders/${order.id}`}
+                        className="font-medium text-teal-500 hover:underline">
                         {order.orderCode}
                       </Link>
                     </td>
                     <td className="py-3 text-gray-600">{order.shippingInfo.recipientName}</td>
                     <td className="py-3 text-right font-medium">{formatVND(order.total)}</td>
-                    <td className="py-3"><OrderStatusBadge status={order.status} /></td>
+                    <td className="py-3">
+                      <OrderStatusBadge status={order.status} />
+                    </td>
                     <td className="py-3 text-gray-400">{formatDate(order.createdAt)}</td>
                   </tr>
                 ))}

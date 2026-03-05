@@ -28,11 +28,7 @@ const methodConfig: Record<
   },
 };
 
-export function PaymentMethodCard({
-  method,
-  selected,
-  onSelect,
-}: PaymentMethodCardProps) {
+export function PaymentMethodCard({ method, selected, onSelect }: PaymentMethodCardProps) {
   const config = methodConfig[method];
 
   return (
@@ -40,16 +36,12 @@ export function PaymentMethodCard({
       type="button"
       onClick={onSelect}
       className={`flex w-full items-center gap-4 rounded-lg border-2 p-4 text-left transition-colors ${
-        selected
-          ? "border-teal-500 bg-teal-50"
-          : "border-gray-200 hover:border-gray-300"
-      }`}
-    >
+        selected ? "border-teal-500 bg-teal-50" : "border-gray-200 hover:border-gray-300"
+      }`}>
       <div
         className={`flex h-10 w-10 items-center justify-center rounded-full ${
           selected ? "bg-teal-100" : "bg-gray-100"
-        }`}
-      >
+        }`}>
         {config.icon}
       </div>
       <div className="flex-1">
@@ -59,8 +51,7 @@ export function PaymentMethodCard({
       <div
         className={`h-5 w-5 rounded-full border-2 ${
           selected ? "border-teal-500 bg-teal-500" : "border-gray-300"
-        }`}
-      >
+        }`}>
         {selected && (
           <div className="flex h-full items-center justify-center">
             <div className="h-2 w-2 rounded-full bg-white" />

@@ -1,10 +1,10 @@
+import { API_ENDPOINTS } from "@/constants/api.config";
 import { USE_MOCK_API } from "@/constants/app.const";
-import { mockCartItems } from "@/mocks/cart.mock";
-import { mockVouchers } from "@/mocks/promotions.mock";
 import type { CartItem } from "@/interfaces/cart.types";
 import type { Voucher } from "@/interfaces/promotion.types";
 import { apiClient } from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api.config";
+import { mockCartItems } from "@/mocks/cart.mock";
+import { mockVouchers } from "@/mocks/promotions.mock";
 
 export const cartService = {
   getCart: async (): Promise<CartItem[]> => {
@@ -21,7 +21,11 @@ export const cartService = {
       await new Promise((r) => setTimeout(r, 300));
       const existing = mockCartItems.find((i) => i.variantId === variantId);
       if (existing) {
-        return { ...existing, quantity: existing.quantity + quantity, subtotal: existing.variant.price * (existing.quantity + quantity) };
+        return {
+          ...existing,
+          quantity: existing.quantity + quantity,
+          subtotal: existing.variant.price * (existing.quantity + quantity),
+        };
       }
       return mockCartItems[0];
     }

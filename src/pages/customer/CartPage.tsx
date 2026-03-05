@@ -105,10 +105,7 @@ export function CartPage() {
                 <span>Tổng cộng</span>
                 <span className="text-red-400">{formatVND(total)}</span>
               </div>
-              <Button
-                className="w-full bg-teal-500 hover:bg-teal-600"
-                onClick={handleCheckout}
-              >
+              <Button className="w-full bg-teal-500 hover:bg-teal-600" onClick={handleCheckout}>
                 Tiến hành thanh toán
               </Button>
             </CardContent>

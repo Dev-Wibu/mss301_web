@@ -1,6 +1,5 @@
 import { OrderCard } from "@/components/common/OrderCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import type { OrderStatus } from "@/interfaces/order.types";
 import { orderService } from "@/services/orderService";
 import { useQuery } from "@tanstack/react-query";
 import { Package } from "lucide-react";
@@ -45,10 +44,11 @@ export function OrderHistoryPage() {
               <>
                 {data?.data
                   .filter((order) => tab.value === "all" || order.status === tab.value)
-                  .map((order) => <OrderCard key={order.id} order={order} />)}
-                {data?.data.filter(
-                  (order) => tab.value === "all" || order.status === tab.value,
-                ).length === 0 && (
+                  .map((order) => (
+                    <OrderCard key={order.id} order={order} />
+                  ))}
+                {data?.data.filter((order) => tab.value === "all" || order.status === tab.value)
+                  .length === 0 && (
                   <div className="flex flex-col items-center py-12 text-center">
                     <Package className="mb-4 h-12 w-12 text-gray-300" />
                     <p className="text-gray-500">Không có đơn hàng nào</p>

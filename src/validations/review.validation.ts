@@ -1,10 +1,7 @@
 import { z } from "zod/v4";
 
 export const createReviewSchema = z.object({
-  rating: z
-    .number()
-    .min(1, "Vui lòng chọn số sao")
-    .max(5),
+  rating: z.number().min(1, "Vui lòng chọn số sao").max(5),
   title: z.string().optional(),
   content: z
     .string()

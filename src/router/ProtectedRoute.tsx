@@ -13,10 +13,7 @@ export function ProtectedRoute({ children, role }: ProtectedRouteProps) {
 
   if (!isLoggedIn) {
     return (
-      <Navigate
-        to={`${ROUTES.LOGIN}?returnUrl=${encodeURIComponent(location.pathname)}`}
-        replace
-      />
+      <Navigate to={`${ROUTES.LOGIN}?returnUrl=${encodeURIComponent(location.pathname)}`} replace />
     );
   }
 

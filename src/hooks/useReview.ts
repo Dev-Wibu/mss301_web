@@ -1,7 +1,7 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { reviewService } from "@/services/reviewService";
 import { useMutationHandler } from "@/hooks/useMutationHandler";
-import type { Review, RatingBreakdown } from "@/interfaces/review.types";
+import type { RatingBreakdown, Review } from "@/interfaces/review.types";
+import { reviewService } from "@/services/reviewService";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useProductReviews(productId: number) {
   return useQuery<{ reviews: Review[]; breakdown: RatingBreakdown }>({

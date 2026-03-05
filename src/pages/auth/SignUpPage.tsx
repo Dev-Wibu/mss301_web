@@ -12,10 +12,7 @@ import { Separator } from "@/components/ui/separator";
 import { ROUTES } from "@/router/routes.const";
 import { authService } from "@/services/authService";
 import { useAuthStore } from "@/stores/authStore";
-import {
-  registerSchema,
-  type RegisterFormData,
-} from "@/validations/auth.validation";
+import { registerSchema, type RegisterFormData } from "@/validations/auth.validation";
 import { toast } from "sonner";
 
 export function SignUpPage() {
@@ -55,16 +52,12 @@ export function SignUpPage() {
           role: result.user.role,
           avatar: result.user.avatar,
         },
-        result.token,
+        result.token
       );
       toast.success("Đăng ký thành công!");
       navigate(ROUTES.HOME);
     } catch (error) {
-      toast.error(
-        error instanceof Error
-          ? error.message
-          : "Đăng ký thất bại. Vui lòng thử lại.",
-      );
+      toast.error(error instanceof Error ? error.message : "Đăng ký thất bại. Vui lòng thử lại.");
     } finally {
       setIsLoading(false);
     }
@@ -74,60 +67,32 @@ export function SignUpPage() {
     <div className="mx-auto w-full max-w-md space-y-6">
       <div className="text-center">
         <h1 className="text-2xl font-bold text-zinc-900">Tạo tài khoản</h1>
-        <p className="mt-2 text-sm text-gray-500">
-          Đăng ký để mua sắm tại TechGear
-        </p>
+        <p className="mt-2 text-sm text-gray-500">Đăng ký để mua sắm tại TechGear</p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="fullName">Họ và tên</Label>
-          <Input
-            id="fullName"
-            placeholder="Nguyễn Văn A"
-            {...register("fullName")}
-          />
-          {errors.fullName && (
-            <p className="text-sm text-red-500">{errors.fullName.message}</p>
-          )}
+          <Input id="fullName" placeholder="Nguyễn Văn A" {...register("fullName")} />
+          {errors.fullName && <p className="text-sm text-red-500">{errors.fullName.message}</p>}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            placeholder="you@example.com"
-            {...register("email")}
-          />
-          {errors.email && (
-            <p className="text-sm text-red-500">{errors.email.message}</p>
-          )}
+          <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
+          {errors.email && <p className="text-sm text-red-500">{errors.email.message}</p>}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="phone">Số điện thoại</Label>
-          <Input
-            id="phone"
-            placeholder="0901234567"
-            {...register("phone")}
-          />
-          {errors.phone && (
-            <p className="text-sm text-red-500">{errors.phone.message}</p>
-          )}
+          <Input id="phone" placeholder="0901234567" {...register("phone")} />
+          {errors.phone && <p className="text-sm text-red-500">{errors.phone.message}</p>}
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="password">Mật khẩu</Label>
-          <Input
-            id="password"
-            type="password"
-            placeholder="••••••••"
-            {...register("password")}
-          />
-          {errors.password && (
-            <p className="text-sm text-red-500">{errors.password.message}</p>
-          )}
+          <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
+          {errors.password && <p className="text-sm text-red-500">{errors.password.message}</p>}
         </div>
 
         <div className="space-y-2">
@@ -139,9 +104,7 @@ export function SignUpPage() {
             {...register("confirmPassword")}
           />
           {errors.confirmPassword && (
-            <p className="text-sm text-red-500">
-              {errors.confirmPassword.message}
-            </p>
+            <p className="text-sm text-red-500">{errors.confirmPassword.message}</p>
           )}
         </div>
 
@@ -155,24 +118,14 @@ export function SignUpPage() {
           />
           <Label htmlFor="agreeTerms" className="text-sm leading-tight">
             Tôi đồng ý với{" "}
-            <span className="text-teal-500 hover:underline cursor-pointer">
-              Điều khoản sử dụng
-            </span>{" "}
+            <span className="cursor-pointer text-teal-500 hover:underline">Điều khoản sử dụng</span>{" "}
             và{" "}
-            <span className="text-teal-500 hover:underline cursor-pointer">
-              Chính sách bảo mật
-            </span>
+            <span className="cursor-pointer text-teal-500 hover:underline">Chính sách bảo mật</span>
           </Label>
         </div>
-        {errors.agreeTerms && (
-          <p className="text-sm text-red-500">{errors.agreeTerms.message}</p>
-        )}
+        {errors.agreeTerms && <p className="text-sm text-red-500">{errors.agreeTerms.message}</p>}
 
-        <Button
-          type="submit"
-          className="w-full bg-teal-500 hover:bg-teal-600"
-          disabled={isLoading}
-        >
+        <Button type="submit" className="w-full bg-teal-500 hover:bg-teal-600" disabled={isLoading}>
           {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
           Đăng ký
         </Button>

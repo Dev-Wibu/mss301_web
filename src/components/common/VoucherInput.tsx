@@ -11,12 +11,7 @@ interface VoucherInputProps {
   onRemove?: () => void;
 }
 
-export function VoucherInput({
-  onApply,
-  isLoading,
-  appliedVoucher,
-  onRemove,
-}: VoucherInputProps) {
+export function VoucherInput({ onApply, isLoading, appliedVoucher, onRemove }: VoucherInputProps) {
   const [code, setCode] = useState("");
 
   const handleApply = () => {
@@ -30,15 +25,10 @@ export function VoucherInput({
       <div className="flex items-center justify-between rounded-lg border border-teal-200 bg-teal-50 p-3">
         <div className="flex items-center gap-2">
           <Tag className="h-4 w-4 text-teal-500" />
-          <span className="text-sm font-medium text-teal-700">
-            {appliedVoucher.code}
-          </span>
+          <span className="text-sm font-medium text-teal-700">{appliedVoucher.code}</span>
         </div>
         {onRemove && (
-          <button
-            onClick={onRemove}
-            className="text-gray-400 hover:text-gray-600"
-          >
+          <button onClick={onRemove} className="text-gray-400 hover:text-gray-600">
             <X className="h-4 w-4" />
           </button>
         )}
@@ -57,8 +47,7 @@ export function VoucherInput({
       <Button
         onClick={handleApply}
         disabled={isLoading || !code.trim()}
-        className="bg-teal-500 hover:bg-teal-600"
-      >
+        className="bg-teal-500 hover:bg-teal-600">
         {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Áp dụng"}
       </Button>
     </div>

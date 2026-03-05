@@ -1,15 +1,18 @@
-import { useCartStore, useCartTotals } from "@/stores/cartStore";
-import { cartService } from "@/services/cartService";
 import { useMutationHandler } from "@/hooks/useMutationHandler";
 import type { CartItem } from "@/interfaces/cart.types";
-import type { Voucher } from "@/interfaces/promotion.types";
 import type { Product, ProductVariant } from "@/interfaces/product.types";
+import type { Voucher } from "@/interfaces/promotion.types";
+import { cartService } from "@/services/cartService";
+import { useCartStore, useCartTotals } from "@/stores/cartStore";
 
 export function useCart() {
   const store = useCartStore();
   const totals = useCartTotals();
 
-  const addToCartMutation = useMutationHandler<CartItem, { product: Product; variant: ProductVariant; quantity: number }>({
+  const addToCartMutation = useMutationHandler<
+    CartItem,
+    { product: Product; variant: ProductVariant; quantity: number }
+  >({
     mutationFn: async ({ variant, quantity }) => {
       return cartService.addToCart(variant.id, quantity);
     },
@@ -41,16 +44,18 @@ export function useCart() {
     errorMessage: "Không thể thêm vào giỏ hàng",
   });
 
-  const updateQuantityMutation = useMutationHandler<CartItem, { itemId: number; quantity: number }>({
-    mutationFn: async ({ itemId, quantity }) => {
-      return cartService.updateCartItem(itemId, quantity);
-    },
-    onSuccess: (_data, { itemId, quantity }) => {
-      store.updateQuantity(itemId, quantity);
-    },
-    showSuccessToast: false,
-    errorMessage: "Không thể cập nhật số lượng",
-  });
+  const updateQuantityMutation = useMutationHandler<CartItem, { itemId: number; quantity: number }>(
+    {
+      mutationFn: async ({ itemId, quantity }) => {
+        return cartService.updateCartItem(itemId, quantity);
+      },
+      onSuccess: (_data, { itemId, quantity }) => {
+        store.updateQuantity(itemId, quantity);
+      },
+      showSuccessToast: false,
+      errorMessage: "Không thể cập nhật số lượng",
+    }
+  );
 
   const removeItemMutation = useMutationHandler<void, number>({
     mutationFn: async (itemId) => {

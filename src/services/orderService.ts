@@ -1,9 +1,9 @@
-import { USE_MOCK_API } from "@/constants/app.const";
-import { mockOrders } from "@/mocks/orders.mock";
-import type { Order, ShippingInfo, PaymentMethod } from "@/interfaces/order.types";
-import type { PaginatedResponse } from "@/interfaces/api.types";
-import { apiClient } from "@/lib/api";
 import { API_ENDPOINTS } from "@/constants/api.config";
+import { USE_MOCK_API } from "@/constants/app.const";
+import type { PaginatedResponse } from "@/interfaces/api.types";
+import type { Order, PaymentMethod, ShippingInfo } from "@/interfaces/order.types";
+import { apiClient } from "@/lib/api";
+import { mockOrders } from "@/mocks/orders.mock";
 
 interface CreateOrderRequest {
   shippingInfo: ShippingInfo;
@@ -98,14 +98,25 @@ export const orderService = {
     return response.data.data;
   },
 
-  updateOrderStatus: async (orderId: number, status: string, note?: string): Promise<Order> => {
+  updateOrderStatus: async (orderId: number, status: string, _note?: string): Promise<Order> => {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 500));
       const order = mockOrders.find((o) => o.id === orderId);
       if (!order) throw new Error("Đơn hàng không tồn tại");
       return { ...order, status: status as Order["status"] };
     }
-    const response = await apiClient.put(API_ENDPOINTS.ORDERS.UPDATE_STATUS(orderId), { status, note });
+    const response = await apiClient.put(API_ENDPOINTS.ORDERS.UPDATE_STATUS, null, {
+      params: { orderId, status },
+    });
+    return response.data.data;
+  },
+
+  getOrdersByUserId: async (userId: number): Promise<Order[]> => {
+    if (USE_MOCK_API) {
+      await new Promise((r) => setTimeout(r, 300));
+      return mockOrders.filter((o) => o.userId === userId);
+    }
+    const response = await apiClient.get(API_ENDPOINTS.ORDERS.BY_USER(userId));
     return response.data.data;
   },
 };

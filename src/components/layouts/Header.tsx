@@ -11,16 +11,7 @@ import { Input } from "@/components/ui/input";
 import { ROUTES } from "@/router/routes.const";
 import { useAuthStore } from "@/stores/authStore";
 import { useCartStore } from "@/stores/cartStore";
-import {
-  Heart,
-  LogOut,
-  Menu,
-  Package,
-  Search,
-  ShoppingCart,
-  User,
-  X,
-} from "lucide-react";
+import { Heart, LogOut, Menu, Package, Search, ShoppingCart, User, X } from "lucide-react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -60,7 +51,9 @@ export function Header() {
           <Link to={ROUTES.HOME} className="text-sm font-medium text-zinc-700 hover:text-teal-500">
             Trang chủ
           </Link>
-          <Link to={ROUTES.PRODUCTS} className="text-sm font-medium text-zinc-700 hover:text-teal-500">
+          <Link
+            to={ROUTES.PRODUCTS}
+            className="text-sm font-medium text-zinc-700 hover:text-teal-500">
             Sản phẩm
           </Link>
         </nav>
@@ -68,7 +61,7 @@ export function Header() {
         {/* Search Bar */}
         <form onSubmit={handleSearch} className="hidden max-w-sm flex-1 md:flex">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+            <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
             <Input
               placeholder="Tìm kiếm sản phẩm..."
               className="pl-10"
@@ -81,7 +74,9 @@ export function Header() {
         {/* Right Actions */}
         <div className="flex items-center gap-2">
           {isLoggedIn && (
-            <Link to={ROUTES.WISHLIST} className="relative hidden p-2 text-zinc-600 hover:text-teal-500 md:block">
+            <Link
+              to={ROUTES.WISHLIST}
+              className="relative hidden p-2 text-zinc-600 hover:text-teal-500 md:block">
               <Heart className="h-5 w-5" />
             </Link>
           )}
@@ -89,7 +84,7 @@ export function Header() {
           <Link to={ROUTES.CART} className="relative p-2 text-zinc-600 hover:text-teal-500">
             <ShoppingCart className="h-5 w-5" />
             {cartCount > 0 && (
-              <Badge className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 p-0 text-[10px] text-white">
+              <Badge className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 p-0 text-[10px] text-white">
                 {cartCount}
               </Badge>
             )}
@@ -108,14 +103,21 @@ export function Header() {
                 <div className="px-2 py-1.5 text-sm font-medium">{user?.name}</div>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild>
-                  <Link to={ROUTES.PROFILE}><User className="mr-2 h-4 w-4" />Hồ sơ</Link>
+                  <Link to={ROUTES.PROFILE}>
+                    <User className="mr-2 h-4 w-4" />
+                    Hồ sơ
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to={ROUTES.ORDER_HISTORY}><Package className="mr-2 h-4 w-4" />Đơn hàng</Link>
+                  <Link to={ROUTES.ORDER_HISTORY}>
+                    <Package className="mr-2 h-4 w-4" />
+                    Đơn hàng
+                  </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={handleLogout} className="text-red-500">
-                  <LogOut className="mr-2 h-4 w-4" />Đăng xuất
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Đăng xuất
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -131,7 +133,11 @@ export function Header() {
           )}
 
           {/* Mobile menu button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
@@ -142,17 +148,42 @@ export function Header() {
         <div className="border-t bg-white p-4 md:hidden">
           <form onSubmit={handleSearch} className="mb-4">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <Input placeholder="Tìm kiếm sản phẩm..." className="pl-10" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <Input
+                placeholder="Tìm kiếm sản phẩm..."
+                className="pl-10"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
           </form>
           <nav className="space-y-2">
-            <Link to={ROUTES.HOME} className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>Trang chủ</Link>
-            <Link to={ROUTES.PRODUCTS} className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>Sản phẩm</Link>
+            <Link
+              to={ROUTES.HOME}
+              className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+              onClick={() => setMobileMenuOpen(false)}>
+              Trang chủ
+            </Link>
+            <Link
+              to={ROUTES.PRODUCTS}
+              className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+              onClick={() => setMobileMenuOpen(false)}>
+              Sản phẩm
+            </Link>
             {!isLoggedIn && (
               <>
-                <Link to={ROUTES.LOGIN} className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>Đăng nhập</Link>
-                <Link to={ROUTES.SIGNUP} className="block rounded-md px-3 py-2 text-sm text-teal-500 hover:bg-gray-100" onClick={() => setMobileMenuOpen(false)}>Đăng ký</Link>
+                <Link
+                  to={ROUTES.LOGIN}
+                  className="block rounded-md px-3 py-2 text-sm hover:bg-gray-100"
+                  onClick={() => setMobileMenuOpen(false)}>
+                  Đăng nhập
+                </Link>
+                <Link
+                  to={ROUTES.SIGNUP}
+                  className="block rounded-md px-3 py-2 text-sm text-teal-500 hover:bg-gray-100"
+                  onClick={() => setMobileMenuOpen(false)}>
+                  Đăng ký
+                </Link>
               </>
             )}
           </nav>

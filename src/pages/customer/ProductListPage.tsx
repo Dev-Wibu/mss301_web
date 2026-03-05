@@ -1,8 +1,6 @@
 import { ProductCard } from "@/components/common/ProductCard";
 import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -55,11 +53,24 @@ export function ProductListPage() {
     const variant = product.variants.find((v) => v.id === variantId);
     if (!variant) return;
     addItem({
-      id: Date.now(),
+      id: variant.id,
       productId: product.id,
       variantId: variant.id,
-      product: { id: product.id, slug: product.slug, name: product.name, thumbnailUrl: product.thumbnailUrl },
-      variant: { id: variant.id, sku: variant.sku, color: variant.color, size: variant.size, price: variant.price, originalPrice: variant.originalPrice, stockQuantity: variant.stockQuantity },
+      product: {
+        id: product.id,
+        slug: product.slug,
+        name: product.name,
+        thumbnailUrl: product.thumbnailUrl,
+      },
+      variant: {
+        id: variant.id,
+        sku: variant.sku,
+        color: variant.color,
+        size: variant.size,
+        price: variant.price,
+        originalPrice: variant.originalPrice,
+        stockQuantity: variant.stockQuantity,
+      },
       quantity: 1,
       subtotal: variant.price,
     });
@@ -77,9 +88,7 @@ export function ProductListPage() {
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-zinc-900">{pageTitle}</h1>
-          {data && (
-            <p className="mt-1 text-sm text-gray-500">{data.total} sản phẩm</p>
-          )}
+          {data && <p className="mt-1 text-sm text-gray-500">{data.total} sản phẩm</p>}
         </div>
         <div className="flex items-center gap-3">
           <SlidersHorizontal className="h-4 w-4 text-gray-400" />
