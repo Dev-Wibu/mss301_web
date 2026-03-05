@@ -34,6 +34,6 @@ export const useWishlistStore = create<WishlistState>()(
     {
       name: "techgear-wishlist",
       partialize: (state) => ({ productIds: state.productIds }),
-    },
-  ),
+    }
+  )
 );
