@@ -1,5 +1,5 @@
-import { useAuthStore } from "@/stores/authStore";
 import { ROUTES } from "@/router/routes.const";
+import { useAuthStore } from "@/stores/authStore";
 import { useNavigate } from "react-router-dom";
 
 export function useAuth() {

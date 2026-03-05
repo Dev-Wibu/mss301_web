@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import { productService } from "@/services/productService";
 import type { Product, ProductListResponse } from "@/interfaces/product.types";
+import { productService } from "@/services/productService";
+import { useQuery } from "@tanstack/react-query";
 
 interface UseProductsParams {
   page?: number;
