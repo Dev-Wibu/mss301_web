@@ -80,12 +80,9 @@ export function OrderDetailAdminPage() {
                 <SelectValue placeholder="Chọn trạng thái" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="pending">Chờ xác nhận</SelectItem>
-                <SelectItem value="confirmed">Đã xác nhận</SelectItem>
-                <SelectItem value="processing">Đang xử lý</SelectItem>
-                <SelectItem value="shipping">Đang giao</SelectItem>
-                <SelectItem value="delivered">Đã giao</SelectItem>
-                <SelectItem value="cancelled">Đã hủy</SelectItem>
+                <SelectItem value="pending">Chờ xử lý</SelectItem>
+                <SelectItem value="paid">Đã thanh toán</SelectItem>
+                <SelectItem value="canceled">Đã hủy</SelectItem>
               </SelectContent>
             </Select>
           </div>
