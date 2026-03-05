@@ -39,7 +39,7 @@ export const mockOrders: Order[] = [
     },
     paymentMethod: "momo",
     paymentStatus: "paid",
-    status: "delivered",
+    status: "paid",
     subtotal: 690000,
     discountAmount: 50000,
     shippingFee: 0,
@@ -52,24 +52,10 @@ export const mockOrders: Order[] = [
     statusHistory: [
       { status: "pending", note: "Đơn hàng mới", timestamp: "2026-02-20T14:30:00Z" },
       {
-        status: "confirmed",
-        note: "Đã xác nhận",
-        timestamp: "2026-02-20T15:00:00Z",
-        updatedBy: "Trần Thị Bình",
+        status: "paid",
+        note: "Thanh toán thành công, đã giao hàng",
+        timestamp: "2026-02-25T10:00:00Z",
       },
-      {
-        status: "processing",
-        note: "Đang chuẩn bị hàng",
-        timestamp: "2026-02-21T09:00:00Z",
-        updatedBy: "Trần Thị Bình",
-      },
-      {
-        status: "shipping",
-        note: "Đã giao cho đơn vị vận chuyển",
-        timestamp: "2026-02-22T10:00:00Z",
-        updatedBy: "Trần Thị Bình",
-      },
-      { status: "delivered", note: "Giao hàng thành công", timestamp: "2026-02-25T10:00:00Z" },
     ],
   },
   {
@@ -99,7 +85,7 @@ export const mockOrders: Order[] = [
     },
     paymentMethod: "vnpay",
     paymentStatus: "paid",
-    status: "shipping",
+    status: "paid",
     subtotal: 6990000,
     discountAmount: 0,
     shippingFee: 30000,
@@ -111,20 +97,8 @@ export const mockOrders: Order[] = [
     statusHistory: [
       { status: "pending", note: "Đơn hàng mới", timestamp: "2026-02-27T10:00:00Z" },
       {
-        status: "confirmed",
-        note: "Đã xác nhận",
-        timestamp: "2026-02-27T10:30:00Z",
-        updatedBy: "Trần Thị Bình",
-      },
-      {
-        status: "processing",
-        note: "Đang chuẩn bị hàng",
-        timestamp: "2026-02-27T14:00:00Z",
-        updatedBy: "Trần Thị Bình",
-      },
-      {
-        status: "shipping",
-        note: "Đã giao cho đơn vị vận chuyển",
+        status: "paid",
+        note: "Thanh toán thành công, đang giao hàng",
         timestamp: "2026-02-28T08:00:00Z",
         updatedBy: "Trần Thị Bình",
       },
@@ -195,7 +169,7 @@ export const mockOrders: Order[] = [
     },
     paymentMethod: "momo",
     paymentStatus: "refunded",
-    status: "cancelled",
+    status: "canceled",
     subtotal: 700000,
     discountAmount: 0,
     shippingFee: 20000,
@@ -208,7 +182,7 @@ export const mockOrders: Order[] = [
     statusHistory: [
       { status: "pending", note: "Đơn hàng mới", timestamp: "2026-02-25T09:00:00Z" },
       {
-        status: "cancelled",
+        status: "canceled",
         note: "Khách hàng hủy đơn: Đổi ý, không cần nữa",
         timestamp: "2026-02-25T12:00:00Z",
       },
@@ -252,7 +226,7 @@ export const mockOrders: Order[] = [
     },
     paymentMethod: "vnpay",
     paymentStatus: "paid",
-    status: "confirmed",
+    status: "paid",
     subtotal: 5480000,
     discountAmount: 100000,
     shippingFee: 0,
@@ -265,8 +239,8 @@ export const mockOrders: Order[] = [
     statusHistory: [
       { status: "pending", note: "Đơn hàng mới", timestamp: "2026-02-26T11:00:00Z" },
       {
-        status: "confirmed",
-        note: "Đã xác nhận",
+        status: "paid",
+        note: "Thanh toán thành công",
         timestamp: "2026-02-26T14:00:00Z",
         updatedBy: "Trần Thị Bình",
       },

@@ -6,11 +6,9 @@ import { Package } from "lucide-react";
 
 const tabs: { label: string; value: string }[] = [
   { label: "Tất cả", value: "all" },
-  { label: "Chờ xác nhận", value: "pending" },
-  { label: "Đang xử lý", value: "processing" },
-  { label: "Đang giao", value: "shipping" },
-  { label: "Đã giao", value: "delivered" },
-  { label: "Đã hủy", value: "cancelled" },
+  { label: "Chờ xử lý", value: "pending" },
+  { label: "Đã thanh toán", value: "paid" },
+  { label: "Đã hủy", value: "canceled" },
 ];
 
 export function OrderHistoryPage() {

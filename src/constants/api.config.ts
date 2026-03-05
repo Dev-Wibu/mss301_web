@@ -76,6 +76,7 @@ export const API_ENDPOINTS = {
     UPLOAD_AVATAR: "/users/me/avatar",
     ADDRESSES: "/users/me/addresses",
     ADDRESS_DETAIL: (id: number) => `/users/me/addresses/${id}`,
+    LIST: "/users",
     ALL: "/admin/users",
     DETAIL: (id: number) => `/admin/users/${id}`,
     TOGGLE_ACTIVE: (id: number) => `/admin/users/${id}/toggle-active`,

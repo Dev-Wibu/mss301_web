@@ -1,12 +1,4 @@
-export type OrderStatus =
-  | "pending"
-  | "confirmed"
-  | "processing"
-  | "shipping"
-  | "delivered"
-  | "cancelled"
-  | "return_requested"
-  | "returned";
+export type OrderStatus = "pending" | "paid" | "canceled";
 
 export type PaymentMethod = "momo" | "vnpay" | "cod";
 export type PaymentStatus = "pending" | "paid" | "failed" | "refunded";
@@ -34,7 +26,7 @@ export interface ShippingInfo {
 }
 
 export interface OrderStatusHistory {
-  status: OrderStatus;
+  status: string;
   note: string;
   timestamp: string;
   updatedBy?: string;

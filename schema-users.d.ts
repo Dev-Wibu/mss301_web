@@ -4,6 +4,38 @@
  */
 
 export interface paths {
+    "/api/users/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAccountById"];
+        put: operations["updateAccount"];
+        post?: never;
+        delete: operations["deleteAccount"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/users/roles/{roleId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put: operations["updateRole"];
+        post?: never;
+        delete: operations["deleteRole"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/users": {
         parameters: {
             query?: never;
@@ -11,9 +43,25 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        get: operations["welcome"];
+        get: operations["getAllAccounts"];
         put?: never;
-        post?: never;
+        post: operations["createAccount"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/users/roles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["getAllRoles"];
+        put?: never;
+        post: operations["createRole"];
         delete?: never;
         options?: never;
         head?: never;
@@ -55,7 +103,35 @@ export interface paths {
 }
 export type webhooks = Record<string, never>;
 export interface components {
-    schemas: never;
+    schemas: {
+        CreateAccountRequest: {
+            email?: string;
+            password?: string;
+            fullName?: string;
+            /** Format: int64 */
+            roleId?: number;
+            customPermissions?: ("CREATE_ORDER" | "VIEW_OWN_ORDER" | "CREATE_REVIEW" | "CREATE_PRODUCT" | "UPDATE_PRODUCT" | "VIEW_ALL_ORDERS" | "UPDATE_ORDER_STATUS" | "DELETE_PRODUCT" | "MANAGE_STAFF" | "VIEW_REVENUE_REPORT")[];
+        };
+        CreateRoleRequest: {
+            name?: string;
+            description?: string;
+            permissions?: ("CREATE_ORDER" | "VIEW_OWN_ORDER" | "CREATE_REVIEW" | "CREATE_PRODUCT" | "UPDATE_PRODUCT" | "VIEW_ALL_ORDERS" | "UPDATE_ORDER_STATUS" | "DELETE_PRODUCT" | "MANAGE_STAFF" | "VIEW_REVENUE_REPORT")[];
+        };
+        RetrieveAccountResponse: {
+            email?: string;
+            password?: string;
+            fullName?: string;
+            roleName?: string;
+            allPermissions?: ("CREATE_ORDER" | "VIEW_OWN_ORDER" | "CREATE_REVIEW" | "CREATE_PRODUCT" | "UPDATE_PRODUCT" | "VIEW_ALL_ORDERS" | "UPDATE_ORDER_STATUS" | "DELETE_PRODUCT" | "MANAGE_STAFF" | "VIEW_REVENUE_REPORT")[];
+        };
+        Role: {
+            /** Format: int64 */
+            id?: number;
+            name?: string;
+            description?: string;
+            permissions?: ("CREATE_ORDER" | "VIEW_OWN_ORDER" | "CREATE_REVIEW" | "CREATE_PRODUCT" | "UPDATE_PRODUCT" | "VIEW_ALL_ORDERS" | "UPDATE_ORDER_STATUS" | "DELETE_PRODUCT" | "MANAGE_STAFF" | "VIEW_REVENUE_REPORT")[];
+        };
+    };
     responses: never;
     parameters: never;
     requestBodies: never;
@@ -64,7 +140,117 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    welcome: {
+    getAccountById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["RetrieveAccountResponse"];
+                };
+            };
+        };
+    };
+    updateAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateAccountRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    deleteAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    updateRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRoleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    deleteRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                roleId: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getAllAccounts: {
         parameters: {
             query?: never;
             header?: never;
@@ -79,8 +265,72 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content: {
-                    "*/*": string;
+                    "*/*": components["schemas"]["RetrieveAccountResponse"][];
                 };
+            };
+        };
+    };
+    createAccount: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateAccountRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    getAllRoles: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["Role"][];
+                };
+            };
+        };
+    };
+    createRole: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateRoleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
         };
     };

@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2 } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
@@ -52,7 +52,7 @@ export function LoginPage() {
       } else if (result.user.role === "admin") {
         navigate(ROUTES.ADMIN_DASHBOARD);
       } else if (result.user.role === "staff") {
-        navigate(ROUTES.STAFF_DASHBOARD);
+        navigate(ROUTES.STAFF_ORDERS);
       } else {
         navigate(ROUTES.HOME);
       }
@@ -76,13 +76,38 @@ export function LoginPage() {
     login(demoUser, "demo-token");
 
     if (role === "admin") navigate(ROUTES.ADMIN_DASHBOARD);
-    else if (role === "staff") navigate(ROUTES.STAFF_DASHBOARD);
+    else if (role === "staff") navigate(ROUTES.STAFF_ORDERS);
     else navigate(ROUTES.HOME);
   };
 
+  const demoAccounts = [
+    {
+      role: "admin" as UserRole,
+      label: "Quản trị viên",
+      color: "bg-orange-500 hover:bg-orange-600 text-white",
+    },
+    {
+      role: "staff" as UserRole,
+      label: "Nhân viên",
+      color: "bg-blue-500 hover:bg-blue-600 text-white",
+    },
+    {
+      role: "customer" as UserRole,
+      label: "Khách hàng",
+      color: "bg-teal-500 hover:bg-teal-600 text-white",
+    },
+  ];
+
   return (
     <div className="mx-auto w-full max-w-md space-y-6">
-      <div className="text-center">
+      <div className="relative text-center">
+        <button
+          type="button"
+          onClick={() => navigate(-1)}
+          className="absolute top-1/2 left-0 flex -translate-y-1/2 items-center gap-1 text-sm text-gray-500 transition-colors hover:text-teal-500">
+          <ArrowLeft className="h-4 w-4" />
+          Quay lại
+        </button>
         <h1 className="text-2xl font-bold text-zinc-900">Đăng nhập</h1>
         <p className="mt-2 text-sm text-gray-500">Chào mừng bạn quay lại TechGear</p>
       </div>
@@ -113,25 +138,28 @@ export function LoginPage() {
 
       <Separator />
 
-      <div className="flex flex-col items-center gap-3">
-        <div className="flex items-center gap-2">
-          <Button size="sm" variant="outline" onClick={() => handleDemo("admin")}>
-            Tài khoản demo: Admin
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => handleDemo("staff")}>
-            Tài khoản demo: Nhân viên
-          </Button>
-          <Button size="sm" variant="outline" onClick={() => handleDemo("customer")}>
-            Tài khoản demo: Khách
-          </Button>
+      <div className="space-y-3">
+        <p className="text-center text-xs font-medium tracking-wide text-gray-400 uppercase">
+          Tài khoản demo
+        </p>
+        <div className="grid grid-cols-3 gap-2">
+          {demoAccounts.map(({ role, label, color }) => (
+            <button
+              key={role}
+              type="button"
+              onClick={() => handleDemo(role)}
+              className={`rounded-lg px-3 py-2.5 text-xs font-semibold transition-colors ${color}`}>
+              {label}
+            </button>
+          ))}
         </div>
+      </div>
 
-        <div className="text-center text-sm text-gray-500">
-          Chưa có tài khoản?{" "}
-          <Link to={ROUTES.SIGNUP} className="text-teal-500 hover:underline">
-            Đăng ký ngay
-          </Link>
-        </div>
+      <div className="text-center text-sm text-gray-500">
+        Chưa có tài khoản?{" "}
+        <Link to={ROUTES.SIGNUP} className="text-teal-500 hover:underline">
+          Đăng ký ngay
+        </Link>
       </div>
     </div>
   );
