@@ -1,12 +1,12 @@
 import { Input } from "@/components/ui/input";
+import { DEBOUNCE_DELAY_MS } from "@/constants/app.const";
 import type { Product } from "@/interfaces/product.types";
+import { ROUTES } from "@/router/routes.const";
 import { productService } from "@/services/productService";
 import { formatVND } from "@/utils/formatPrice";
-import { DEBOUNCE_DELAY_MS } from "@/constants/app.const";
 import { Search, X } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { ROUTES } from "@/router/routes.const";
 
 interface SearchBarProps {
   className?: string;
@@ -89,22 +89,21 @@ export function SearchBar({ className, placeholder = "Tìm kiếm sản phẩm..
   return (
     <div ref={containerRef} className={`relative ${className ?? ""}`}>
       <form onSubmit={handleSubmit} className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
         <Input
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => suggestions.length > 0 && setIsOpen(true)}
           placeholder={placeholder}
-          className="pl-10 pr-8"
+          className="pr-8 pl-10"
         />
         {query && (
           <button
             type="button"
             onClick={handleClear}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-            aria-label="Xóa tìm kiếm"
-          >
+            className="absolute top-1/2 right-3 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+            aria-label="Xóa tìm kiếm">
             <X className="h-4 w-4" />
           </button>
         )}
@@ -113,29 +112,22 @@ export function SearchBar({ className, placeholder = "Tìm kiếm sản phẩm..
       {isOpen && (
         <div className="absolute top-full z-50 mt-1 w-full rounded-lg border border-gray-100 bg-white shadow-lg">
           {isLoading ? (
-            <div className="p-3 text-center text-sm text-gray-500">
-              Đang tìm kiếm...
-            </div>
+            <div className="p-3 text-center text-sm text-gray-500">Đang tìm kiếm...</div>
           ) : (
             <ul>
               {suggestions.map((product) => (
                 <li key={product.id}>
                   <button
                     onClick={() => handleSuggestionClick(product)}
-                    className="flex w-full items-center gap-3 px-3 py-2 text-left transition-colors hover:bg-gray-50"
-                  >
+                    className="flex w-full items-center gap-3 px-3 py-2 text-left transition-colors hover:bg-gray-50">
                     <img
                       src={product.thumbnailUrl}
                       alt={product.name}
                       className="h-10 w-10 rounded object-cover"
                     />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-medium text-zinc-900">
-                        {product.name}
-                      </p>
-                      <p className="text-xs text-red-400">
-                        {formatVND(product.defaultPrice)}
-                      </p>
+                      <p className="truncate text-sm font-medium text-zinc-900">{product.name}</p>
+                      <p className="text-xs text-red-400">{formatVND(product.defaultPrice)}</p>
                     </div>
                   </button>
                 </li>
