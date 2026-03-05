@@ -5,7 +5,7 @@ import { orderService } from "@/services/orderService";
 import { formatDate } from "@/utils/formatDate";
 import { formatVND } from "@/utils/formatPrice";
 import { useQuery } from "@tanstack/react-query";
-import { MessageSquare, Package, Truck } from "lucide-react";
+import { MessageSquare, Package, ShoppingBag } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function StaffDashboardPage() {
@@ -15,7 +15,7 @@ export function StaffDashboardPage() {
   });
 
   const pendingCount = orders?.data.filter((o) => o.status === "pending").length || 0;
-  const shippingCount = orders?.data.filter((o) => o.status === "shipping").length || 0;
+  const paidCount = orders?.data.filter((o) => o.status === "paid").length || 0;
 
   const summaryCards = [
     {
@@ -26,9 +26,9 @@ export function StaffDashboardPage() {
       bg: "bg-orange-50",
     },
     {
-      title: "Đơn đang giao",
-      value: shippingCount,
-      icon: Truck,
+      title: "Đơn đã thanh toán",
+      value: paidCount,
+      icon: ShoppingBag,
       color: "text-blue-500",
       bg: "bg-blue-50",
     },

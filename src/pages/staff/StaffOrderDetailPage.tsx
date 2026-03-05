@@ -105,10 +105,9 @@ export function StaffOrderDetailPage() {
                   <SelectValue placeholder="Chọn trạng thái mới" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="confirmed">Xác nhận</SelectItem>
-                  <SelectItem value="processing">Đang xử lý</SelectItem>
-                  <SelectItem value="shipping">Đang giao hàng</SelectItem>
-                  <SelectItem value="delivered">Đã giao hàng</SelectItem>
+                  <SelectItem value="pending">Chờ xử lý</SelectItem>
+                  <SelectItem value="paid">Đã thanh toán</SelectItem>
+                  <SelectItem value="canceled">Đã hủy</SelectItem>
                 </SelectContent>
               </Select>
               <Textarea
