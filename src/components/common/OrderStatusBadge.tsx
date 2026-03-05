@@ -5,10 +5,7 @@ interface OrderStatusBadgeProps {
   status: OrderStatus;
 }
 
-const statusConfig: Record<
-  OrderStatus,
-  { label: string; className: string }
-> = {
+const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
   pending: { label: "Chờ xác nhận", className: "bg-yellow-500 text-white" },
   confirmed: { label: "Đã xác nhận", className: "bg-blue-500 text-white" },
   processing: { label: "Đang xử lý", className: "bg-blue-500 text-white" },

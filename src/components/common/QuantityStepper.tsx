@@ -8,12 +8,7 @@ interface QuantityStepperProps {
   onChange: (value: number) => void;
 }
 
-export function QuantityStepper({
-  value,
-  min = 1,
-  max,
-  onChange,
-}: QuantityStepperProps) {
+export function QuantityStepper({ value, min = 1, max, onChange }: QuantityStepperProps) {
   return (
     <div className="flex items-center gap-2">
       <Button
@@ -21,8 +16,7 @@ export function QuantityStepper({
         size="icon"
         className="h-8 w-8"
         disabled={value <= min}
-        onClick={() => onChange(value - 1)}
-      >
+        onClick={() => onChange(value - 1)}>
         <Minus className="h-3 w-3" />
       </Button>
       <span className="w-8 text-center text-sm font-medium">{value}</span>
@@ -31,8 +25,7 @@ export function QuantityStepper({
         size="icon"
         className="h-8 w-8"
         disabled={value >= max}
-        onClick={() => onChange(value + 1)}
-      >
+        onClick={() => onChange(value + 1)}>
         <Plus className="h-3 w-3" />
       </Button>
     </div>

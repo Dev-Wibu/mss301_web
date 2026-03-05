@@ -9,9 +9,7 @@ export function RatingBreakdown({ breakdown }: RatingBreakdownProps) {
   return (
     <div className="flex items-start gap-8">
       <div className="text-center">
-        <div className="text-4xl font-bold text-zinc-900">
-          {breakdown.average}
-        </div>
+        <div className="text-4xl font-bold text-zinc-900">{breakdown.average}</div>
         <div className="mt-1 flex items-center justify-center gap-0.5">
           {[1, 2, 3, 4, 5].map((star) => (
             <Star
@@ -24,18 +22,13 @@ export function RatingBreakdown({ breakdown }: RatingBreakdownProps) {
             />
           ))}
         </div>
-        <p className="mt-1 text-sm text-gray-500">
-          {breakdown.total} đánh giá
-        </p>
+        <p className="mt-1 text-sm text-gray-500">{breakdown.total} đánh giá</p>
       </div>
 
       <div className="flex-1 space-y-1.5">
         {([5, 4, 3, 2, 1] as const).map((star) => {
           const count = breakdown.distribution[star];
-          const percentage =
-            breakdown.total > 0
-              ? Math.round((count / breakdown.total) * 100)
-              : 0;
+          const percentage = breakdown.total > 0 ? Math.round((count / breakdown.total) * 100) : 0;
 
           return (
             <div key={star} className="flex items-center gap-2">
@@ -47,9 +40,7 @@ export function RatingBreakdown({ breakdown }: RatingBreakdownProps) {
                   style={{ width: `${percentage}%` }}
                 />
               </div>
-              <span className="w-8 text-right text-xs text-gray-500">
-                {count}
-              </span>
+              <span className="w-8 text-right text-xs text-gray-500">{count}</span>
             </div>
           );
         })}

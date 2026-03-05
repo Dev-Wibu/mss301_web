@@ -31,9 +31,7 @@ export function ProductCard({
             loading="lazy"
           />
           {product.isFlashSale && (
-            <Badge className="absolute left-2 top-2 bg-red-400 text-white">
-              SALE
-            </Badge>
+            <Badge className="absolute top-2 left-2 bg-red-400 text-white">SALE</Badge>
           )}
         </div>
       </Link>
@@ -41,9 +39,8 @@ export function ProductCard({
       {onToggleWishlist && (
         <button
           onClick={() => onToggleWishlist(product.id)}
-          className="absolute right-2 top-2 rounded-full bg-white p-1.5 shadow-sm transition-colors hover:bg-gray-50"
-          aria-label={isWishlisted ? "Bỏ yêu thích" : "Thêm yêu thích"}
-        >
+          className="absolute top-2 right-2 rounded-full bg-white p-1.5 shadow-sm transition-colors hover:bg-gray-50"
+          aria-label={isWishlisted ? "Bỏ yêu thích" : "Thêm yêu thích"}>
           <Heart
             className={`h-4 w-4 ${isWishlisted ? "fill-teal-500 text-teal-500" : "text-gray-400"}`}
           />
@@ -63,9 +60,7 @@ export function ProductCard({
           <span className="text-xs text-gray-500">
             {product.rating} ({product.reviewCount})
           </span>
-          <span className="text-xs text-gray-400">
-            | Đã bán {product.soldCount}
-          </span>
+          <span className="text-xs text-gray-400">| Đã bán {product.soldCount}</span>
         </div>
 
         <PriceDisplay
@@ -78,8 +73,7 @@ export function ProductCard({
           <Button
             size="sm"
             className="w-full bg-teal-500 opacity-0 transition-opacity group-hover:opacity-100 hover:bg-teal-600"
-            onClick={() => onAddToCart(product.variants[0]?.id)}
-          >
+            onClick={() => onAddToCart(product.variants[0]?.id)}>
             <ShoppingCart className="mr-1 h-4 w-4" />
             Thêm vào giỏ
           </Button>

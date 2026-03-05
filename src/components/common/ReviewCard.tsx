@@ -25,9 +25,7 @@ export function ReviewCard({ review, onMarkHelpful }: ReviewCardProps) {
 
         <div className="flex-1">
           <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-zinc-900">
-              {review.authorName}
-            </span>
+            <span className="text-sm font-medium text-zinc-900">{review.authorName}</span>
             {review.isVerifiedPurchase && (
               <span className="inline-flex items-center gap-1 text-xs text-green-600">
                 <CheckCircle className="h-3 w-3" />
@@ -42,23 +40,15 @@ export function ReviewCard({ review, onMarkHelpful }: ReviewCardProps) {
                 <Star
                   key={star}
                   className={`h-3.5 w-3.5 ${
-                    star <= review.rating
-                      ? "fill-yellow-500 text-yellow-500"
-                      : "text-gray-300"
+                    star <= review.rating ? "fill-yellow-500 text-yellow-500" : "text-gray-300"
                   }`}
                 />
               ))}
             </div>
-            <span className="text-xs text-gray-400">
-              {formatRelativeTime(review.createdAt)}
-            </span>
+            <span className="text-xs text-gray-400">{formatRelativeTime(review.createdAt)}</span>
           </div>
 
-          {review.title && (
-            <p className="mt-2 text-sm font-medium text-zinc-900">
-              {review.title}
-            </p>
-          )}
+          {review.title && <p className="mt-2 text-sm font-medium text-zinc-900">{review.title}</p>}
           <p className="mt-1 text-sm text-gray-600">{review.content}</p>
 
           {review.images.length > 0 && (
@@ -77,8 +67,7 @@ export function ReviewCard({ review, onMarkHelpful }: ReviewCardProps) {
           {onMarkHelpful && (
             <button
               onClick={() => onMarkHelpful(review.id)}
-              className="mt-2 inline-flex items-center gap-1 text-xs text-gray-400 hover:text-teal-500"
-            >
+              className="mt-2 inline-flex items-center gap-1 text-xs text-gray-400 hover:text-teal-500">
               <ThumbsUp className="h-3 w-3" />
               Hữu ích ({review.helpfulCount})
             </button>
