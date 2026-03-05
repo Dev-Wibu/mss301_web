@@ -4,15 +4,12 @@ import { useAuthStore } from "@/stores/authStore";
 import {
   BarChart3,
   Bookmark,
-  Grid3X3,
   LayoutDashboard,
   LogOut,
-  MessageSquare,
   Package,
   ShoppingCart,
-  Tag,
+  UserCog,
   Users,
-  Wallet,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
@@ -22,22 +19,22 @@ interface SidebarItem {
   icon: React.ComponentType<{ className?: string }>;
 }
 
+// Admin: overview, reports, users, employees only
+// Hidden temporarily: orders, products, categories, brands, promotions
 const adminItems: SidebarItem[] = [
   { label: "Tổng quan", href: ROUTES.ADMIN_DASHBOARD, icon: LayoutDashboard },
   { label: "Báo cáo", href: ROUTES.ADMIN_REPORTS, icon: BarChart3 },
-  { label: "Đơn hàng", href: ROUTES.ADMIN_ORDERS, icon: ShoppingCart },
-  { label: "Sản phẩm", href: ROUTES.ADMIN_PRODUCTS, icon: Package },
-  { label: "Danh mục", href: ROUTES.ADMIN_CATEGORIES, icon: Grid3X3 },
-  { label: "Thương hiệu", href: ROUTES.ADMIN_BRANDS, icon: Bookmark },
   { label: "Khách hàng", href: ROUTES.ADMIN_USERS, icon: Users },
-  { label: "Khuyến mãi", href: ROUTES.ADMIN_PROMOTIONS, icon: Tag },
+  { label: "Nhân viên", href: ROUTES.ADMIN_EMPLOYEES, icon: UserCog },
 ];
 
+// Staff: orders, products, brands, users only
+// Hidden temporarily: dashboard, payments, feedback
 const staffItems: SidebarItem[] = [
-  { label: "Tổng quan", href: ROUTES.STAFF_DASHBOARD, icon: LayoutDashboard },
   { label: "Đơn hàng", href: ROUTES.STAFF_ORDERS, icon: ShoppingCart },
-  { label: "Thanh toán", href: ROUTES.STAFF_PAYMENTS, icon: Wallet },
-  { label: "Phản hồi", href: ROUTES.STAFF_FEEDBACK, icon: MessageSquare },
+  { label: "Sản phẩm", href: ROUTES.STAFF_PRODUCTS, icon: Package },
+  { label: "Thương hiệu", href: ROUTES.STAFF_BRANDS, icon: Bookmark },
+  { label: "Người dùng", href: ROUTES.STAFF_USERS, icon: Users },
 ];
 
 export function DashboardSidebar() {
