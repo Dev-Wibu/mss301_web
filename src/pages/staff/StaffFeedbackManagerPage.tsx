@@ -11,7 +11,11 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export function StaffFeedbackManagerPage() {
-  const { data: feedbacks, isLoading, refetch } = useQuery({
+  const {
+    data: feedbacks,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["staff", "feedbacks"],
     queryFn: feedbackService.getFeedbacks,
   });
@@ -66,10 +70,17 @@ export function StaffFeedbackManagerPage() {
                     <MessageSquare className="h-5 w-5 text-teal-500" />
                     <div>
                       <CardTitle className="text-base">{fb.customerName}</CardTitle>
-                      <p className="text-xs text-gray-400">{fb.customerEmail} · {formatDate(fb.createdAt)}</p>
+                      <p className="text-xs text-gray-400">
+                        {fb.customerEmail} · {formatDate(fb.createdAt)}
+                      </p>
                     </div>
                   </div>
-                  <Badge className={fb.status === "open" ? "bg-yellow-100 text-yellow-700" : "bg-green-100 text-green-700"}>
+                  <Badge
+                    className={
+                      fb.status === "open"
+                        ? "bg-yellow-100 text-yellow-700"
+                        : "bg-green-100 text-green-700"
+                    }>
                     {fb.status === "open" ? "Đang mở" : "Đã xử lý"}
                   </Badge>
                 </div>
@@ -83,7 +94,9 @@ export function StaffFeedbackManagerPage() {
                     <div className="space-y-3">
                       {fb.replies.map((reply, i) => (
                         <div key={i} className="rounded-lg bg-teal-50 p-3">
-                          <p className="text-xs font-medium text-teal-700">{reply.staffName} · {formatDate(reply.createdAt)}</p>
+                          <p className="text-xs font-medium text-teal-700">
+                            {reply.staffName} · {formatDate(reply.createdAt)}
+                          </p>
                           <p className="mt-1 text-sm text-teal-800">{reply.message}</p>
                         </div>
                       ))}
@@ -95,12 +108,27 @@ export function StaffFeedbackManagerPage() {
                   <div className="space-y-3">
                     {replyingId === fb.id ? (
                       <>
-                        <Textarea value={replyText} onChange={(e) => setReplyText(e.target.value)} placeholder="Nhập phản hồi..." />
+                        <Textarea
+                          value={replyText}
+                          onChange={(e) => setReplyText(e.target.value)}
+                          placeholder="Nhập phản hồi..."
+                        />
                         <div className="flex gap-2">
-                          <Button className="bg-teal-500 hover:bg-teal-600" onClick={() => handleReply(fb.id)} disabled={isSending}>
-                            {isSending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Gửi phản hồi
+                          <Button
+                            className="bg-teal-500 hover:bg-teal-600"
+                            onClick={() => handleReply(fb.id)}
+                            disabled={isSending}>
+                            {isSending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />} Gửi
+                            phản hồi
                           </Button>
-                          <Button variant="outline" onClick={() => { setReplyingId(null); setReplyText(""); }}>Hủy</Button>
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              setReplyingId(null);
+                              setReplyText("");
+                            }}>
+                            Hủy
+                          </Button>
                         </div>
                       </>
                     ) : (
