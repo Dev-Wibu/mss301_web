@@ -77,7 +77,7 @@ export const orderService = {
       await new Promise((r) => setTimeout(r, 500));
       const order = mockOrders.find((o) => o.id === orderId);
       if (!order) throw new Error("Đơn hàng không tồn tại");
-      return { ...order, status: "cancelled" };
+      return { ...order, status: "canceled" };
     }
     const response = await apiClient.post(API_ENDPOINTS.ORDERS.CANCEL(orderId), { reason });
     return response.data.data;

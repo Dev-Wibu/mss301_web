@@ -86,4 +86,30 @@ export const userService = {
     const response = await apiClient.put(API_ENDPOINTS.USERS.UPDATE_ROLE(id), { role });
     return response.data.data;
   },
+
+  createEmployee: async (data: {
+    fullName: string;
+    email: string;
+    phone: string;
+  }): Promise<User> => {
+    if (USE_MOCK_API) {
+      await new Promise((r) => setTimeout(r, 500));
+      const newEmployee: User = {
+        id: Date.now(),
+        email: data.email,
+        phone: data.phone,
+        fullName: data.fullName,
+        role: "staff",
+        isActive: true,
+        createdAt: new Date().toISOString(),
+      };
+      mockUsers.push(newEmployee);
+      return newEmployee;
+    }
+    const response = await apiClient.post(API_ENDPOINTS.USERS.LIST, {
+      ...data,
+      role: "staff",
+    });
+    return response.data.data;
+  },
 };
