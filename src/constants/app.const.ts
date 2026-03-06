@@ -1,5 +1,5 @@
 export const APP_NAME = "TechGear";
-export const USE_MOCK_API = true;
+export const USE_MOCK_API = false;
 
 export const PAGINATION = {
   DEFAULT_PAGE_SIZE: 12,

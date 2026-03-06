@@ -12,6 +12,15 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://tgdd-api.kdz.asia",
+        changeOrigin: true,
+        secure: false, // Bỏ qua lỗi SSL nếu có
+      },
+    },
+  },
   // Vitest configuration
   test: {
     globals: true,

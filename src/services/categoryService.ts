@@ -6,23 +6,17 @@ import { mockCategories } from "@/mocks/categories.mock";
 
 export const categoryService = {
   getCategories: async (): Promise<Category[]> => {
+    // Tạm thời nếu vẫn còn code Mock cũ thì chặn nó lại
     if (USE_MOCK_API) {
-      await new Promise((r) => setTimeout(r, 300));
-      return mockCategories;
+      return [];
     }
-    const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.LIST);
-    return response.data.data;
-  },
-
-  getCategoryBySlug: async (slug: string): Promise<Category> => {
-    if (USE_MOCK_API) {
-      await new Promise((r) => setTimeout(r, 200));
-      const category = mockCategories.find((c) => c.slug === slug);
-      if (!category) throw new Error("Danh mục không tồn tại");
-      return category;
+    try {
+      const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.LIST);
+      return response.data;
+    } catch (error) {
+      console.error("Lỗi khi tải danh mục:", error);
+      return [];
     }
-    const response = await apiClient.get(API_ENDPOINTS.CATEGORIES.DETAIL(0));
-    return response.data.data;
   },
 
   createCategory: async (data: { name: string; description?: string }): Promise<Category> => {

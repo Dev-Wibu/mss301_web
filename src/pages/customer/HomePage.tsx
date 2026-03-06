@@ -3,6 +3,7 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import type { Product } from "@/interfaces/product.types";
 import { ROUTES } from "@/router/routes.const";
 import { categoryService } from "@/services/categoryService";
 import { productService } from "@/services/productService";
@@ -64,33 +65,28 @@ export function HomePage() {
     queryFn: productService.getFeaturedProducts,
   });
 
-  const handleAddToCart = (
-    product: typeof featuredProducts extends (infer T)[] | undefined ? T : never,
-    variantId: number
-  ) => {
-    const variant = product.variants.find((v) => v.id === variantId);
-    if (!variant) return;
+  const handleAddToCart = (product: Product) => {
     addItem({
-      id: variant.id,
+      id: product.id,
       productId: product.id,
-      variantId: variant.id,
+      variantId: product.id,
       product: {
         id: product.id,
-        slug: product.slug,
+        slug: product.id.toString(),
         name: product.name,
         thumbnailUrl: product.thumbnailUrl,
       },
       variant: {
-        id: variant.id,
-        sku: variant.sku,
-        color: variant.color,
-        size: variant.size,
-        price: variant.price,
-        originalPrice: variant.originalPrice,
-        stockQuantity: variant.stockQuantity,
+        id: product.id,
+        sku: `SKU-${product.id}`,
+        color: "Mặc định",
+        size: "Mặc định",
+        price: product.defaultPrice,
+        originalPrice: product.defaultOriginalPrice,
+        stockQuantity: product.variants[0]?.stockQuantity ?? 0,
       },
       quantity: 1,
-      subtotal: variant.price,
+      subtotal: product.defaultPrice,
     });
     toast.success("Đã thêm vào giỏ hàng!");
   };
@@ -162,7 +158,8 @@ export function HomePage() {
                 <div key={product.id} className="w-56 shrink-0">
                   <ProductCard
                     product={product}
-                    onAddToCart={(vid) => handleAddToCart(product, vid)}
+                    // ĐÃ SỬA: Bỏ truyền vid vì không còn biến thể
+                    onAddToCart={() => handleAddToCart(product)}
                     isWishlisted={isInWishlist(product.id)}
                     onToggleWishlist={toggleWishlist}
                   />
@@ -189,7 +186,7 @@ export function HomePage() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  onAddToCart={(vid) => handleAddToCart(product, vid)}
+                  onAddToCart={() => handleAddToCart(product)}
                   isWishlisted={isInWishlist(product.id)}
                   onToggleWishlist={toggleWishlist}
                 />
