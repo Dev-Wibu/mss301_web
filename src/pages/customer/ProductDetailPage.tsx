@@ -25,6 +25,7 @@ export function ProductDetailPage() {
     enabled: !!slug,
   });
 
+  // Tạm ẩn review vì backend chưa có API này
   // const { data: reviewData } = useQuery({
   //   queryKey: ["reviews", product?.id],
   //   queryFn: () => reviewService.getProductReviews(product!.id),
@@ -61,7 +62,6 @@ export function ProductDetailPage() {
   }
 
   const handleAddToCart = () => {
-    // Vì API không có variant (phân loại), ta truyền chính ID sản phẩm làm variant
     addItem({
       id: Date.now(),
       productId: product.id,
@@ -70,19 +70,19 @@ export function ProductDetailPage() {
         id: product.id,
         slug: product.id.toString(),
         name: product.name,
-        thumbnailUrl: product.thumbnailUrl,
+        thumbnailUrl: product.imgUrl,
       },
       variant: {
         id: product.id,
         sku: `SKU-${product.id}`,
         color: "Mặc định",
         size: "Mặc định",
-        price: product.defaultPrice,
-        originalPrice: product.defaultOriginalPrice,
-        stockQuantity: product.variants[0]?.stockQuantity ?? 0,
+        price: product.price,
+        originalPrice: product.price,
+        stockQuantity: product.quantity,
       },
       quantity,
-      subtotal: product.defaultPrice * quantity,
+      subtotal: product.price * quantity,
     });
     toast.success("Đã thêm vào giỏ hàng!");
   };
@@ -95,8 +95,7 @@ export function ProductDetailPage() {
           Trang chủ
         </Link>
         <span className="mx-2">/</span>
-        {/* ĐƯờNG DẪN */}
-        <span className="text-gray-500">{product.category.name}</span>
+        <span className="text-gray-500">{product.categoryName}</span>
         <span className="mx-2">/</span>
         <span className="text-zinc-900">{product.name}</span>
       </nav>
@@ -105,18 +104,16 @@ export function ProductDetailPage() {
         {/* Image */}
         <div className="flex aspect-square items-center justify-center overflow-hidden rounded-xl border bg-white p-4">
           <img
-            src={product.thumbnailUrl}
+            src={product.imgUrl}
             alt={product.name}
             className="max-h-full max-w-full object-contain"
           />
         </div>
 
-        {/* Info */}
         <div className="space-y-4">
-          <p className="text-sm font-semibold text-teal-600">{product.brand.name}</p>
+          <p className="text-sm font-semibold text-teal-600">{product.brandName}</p>
           <h1 className="text-2xl font-bold text-zinc-900">{product.name}</h1>
 
-          {/* Đánh giá giả lập vì API chưa có */}
           <div className="flex items-center gap-2">
             <div className="flex">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -127,27 +124,24 @@ export function ProductDetailPage() {
           </div>
 
           <PriceDisplay
-            price={product.defaultPrice}
-            originalPrice={product.defaultOriginalPrice}
+            price={product.price}
+            originalPrice={product.price}
             size="lg"
           />
 
           {/* Stock */}
           <p
-            className={`text-sm ${(product.variants[0]?.stockQuantity ?? 0) > 0 ? "text-green-600" : "text-gray-400"}`}>
-            {(product.variants[0]?.stockQuantity ?? 0) > 0
-              ? `Còn hàng (${product.variants[0]?.stockQuantity ?? 0} sản phẩm)`
+            className={`text-sm ${product.quantity > 0 ? "text-green-600" : "text-gray-400"}`}>
+            {product.quantity > 0
+              ? `Còn hàng (${product.quantity} sản phẩm)`
               : "Hết hàng"}
           </p>
+          
           {/* Quantity + Actions */}
           <div className="flex items-center gap-4 pt-4">
             <QuantityStepper
               value={quantity}
-              max={
-                (product.variants[0]?.stockQuantity ?? 0) > 0
-                  ? (product.variants[0]?.stockQuantity ?? 0)
-                  : 1
-              }
+              max={product.quantity > 0 ? product.quantity : 1}
               onChange={setQuantity}
             />
           </div>
@@ -155,7 +149,7 @@ export function ProductDetailPage() {
             <Button
               className="flex-1 bg-teal-500 hover:bg-teal-600"
               onClick={handleAddToCart}
-              disabled={(product.variants[0]?.stockQuantity ?? 0) === 0}>
+              disabled={product.quantity === 0}>
               <ShoppingCart className="mr-2 h-4 w-4" />
               Thêm vào giỏ hàng
             </Button>
@@ -179,8 +173,6 @@ export function ProductDetailPage() {
       <Tabs defaultValue="description" className="space-y-4">
         <TabsList>
           <TabsTrigger value="description">Mô tả</TabsTrigger>
-          {/* Tạm ẩn tab thông số kỹ thuật vì API không trả về */}
-          {/* <TabsTrigger value="specs">Thông số</TabsTrigger> */}
           <TabsTrigger value="reviews">Đánh giá (0)</TabsTrigger>
         </TabsList>
 
