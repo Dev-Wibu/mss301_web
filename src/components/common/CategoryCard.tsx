@@ -1,12 +1,5 @@
 import type { Category } from "@/interfaces/product.types";
-import {
-  Gamepad2,
-  HardDrive,
-  Headphones,
-  Home,
-  Laptop,
-  Smartphone,
-} from "lucide-react";
+import { Gamepad2, HardDrive, Headphones, Home, Laptop, Smartphone } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const getCategoryIcon = (categoryName?: string) => {

@@ -1,16 +1,15 @@
 import { CategoryCard } from "@/components/common/CategoryCard";
-import { PriceDisplay } from "@/components/common/PriceDisplay";
 import { ProductCard } from "@/components/common/ProductCard";
 import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ROUTES } from "@/router/routes.const";
 import { categoryService } from "@/services/categoryService";
 import { productService } from "@/services/productService";
 import { useCartStore } from "@/stores/cartStore";
 import { useWishlistStore } from "@/stores/wishlistStore";
-import { truncateText } from "@/utils/truncateText";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowRight, Clock, Star, Zap } from "lucide-react";
+import { ArrowRight, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
@@ -38,16 +37,12 @@ function CountdownTimer({ endAt }: { endAt: string }) {
 
   return (
     <div className="flex gap-1">
-      {[pad(timeLeft.hours), pad(timeLeft.minutes), pad(timeLeft.seconds)].map(
-        (val, i) => (
-          <div key={i} className="flex items-center gap-1">
-            <span className="rounded bg-red-400 px-2 py-1 text-sm font-bold text-white">
-              {val}
-            </span>
-            {i < 2 && <span className="text-sm font-bold text-red-400">:</span>}
-          </div>
-        ),
-      )}
+      {[pad(timeLeft.hours), pad(timeLeft.minutes), pad(timeLeft.seconds)].map((val, i) => (
+        <div key={i} className="flex items-center gap-1">
+          <span className="rounded bg-red-400 px-2 py-1 text-sm font-bold text-white">{val}</span>
+          {i < 2 && <span className="text-sm font-bold text-red-400">:</span>}
+        </div>
+      ))}
     </div>
   );
 }
@@ -73,7 +68,7 @@ export function HomePage() {
 
   const handleAddToCart = (product: Product) => {
     addItem({
-      id: Date.now(),
+      id: variant.id,
       productId: product.id,
       variantId: product.id,
       product: {
@@ -129,7 +124,9 @@ export function HomePage() {
           </div>
         ) : (
           <div className="grid grid-cols-3 gap-4 md:grid-cols-6">
-            {categories?.map((cat) => <CategoryCard key={cat.id} category={cat} />)}
+            {categories?.map((cat) => (
+              <CategoryCard key={cat.id} category={cat} />
+            ))}
           </div>
         )}
       </section>

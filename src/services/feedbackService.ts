@@ -1,6 +1,6 @@
+import { API_ENDPOINTS } from "@/constants/api.config";
 import { USE_MOCK_API } from "@/constants/app.const";
 import { apiClient } from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api.config";
 
 interface Feedback {
   id: number;

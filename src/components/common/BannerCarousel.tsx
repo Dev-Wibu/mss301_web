@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -42,28 +42,16 @@ export function BannerCarousel({ banners, autoPlayInterval = 5000 }: BannerCarou
     <section className="relative overflow-hidden">
       <div
         className="flex transition-transform duration-500 ease-in-out"
-        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-      >
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
         {banners.map((b) => (
-          <div
-            key={b.id}
-            className="relative min-w-full"
-          >
+          <div key={b.id} className="relative min-w-full">
             <div className="bg-gradient-to-r from-teal-500 to-teal-600">
               <div className="container mx-auto flex flex-col items-center gap-6 px-4 py-16 text-center text-white md:py-24">
-                {b.badgeText && (
-                  <Badge className="bg-red-400 text-white">{b.badgeText}</Badge>
-                )}
+                {b.badgeText && <Badge className="bg-red-400 text-white">{b.badgeText}</Badge>}
                 <h2 className="text-3xl font-bold md:text-5xl">{b.title}</h2>
-                {b.subtitle && (
-                  <p className="max-w-lg text-teal-100">{b.subtitle}</p>
-                )}
+                {b.subtitle && <p className="max-w-lg text-teal-100">{b.subtitle}</p>}
                 {b.ctaText && b.ctaLink && (
-                  <Button
-                    size="lg"
-                    className="bg-white text-teal-600 hover:bg-gray-100"
-                    asChild
-                  >
+                  <Button size="lg" className="bg-white text-teal-600 hover:bg-gray-100" asChild>
                     <Link to={b.ctaLink}>{b.ctaText}</Link>
                   </Button>
                 )}
@@ -77,16 +65,14 @@ export function BannerCarousel({ banners, autoPlayInterval = 5000 }: BannerCarou
         <>
           <button
             onClick={goToPrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white"
-            aria-label="Banner trước"
-          >
+            className="absolute top-1/2 left-4 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white"
+            aria-label="Banner trước">
             <ChevronLeft className="h-5 w-5 text-zinc-700" />
           </button>
           <button
             onClick={goToNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white"
-            aria-label="Banner tiếp theo"
-          >
+            className="absolute top-1/2 right-4 -translate-y-1/2 rounded-full bg-white/80 p-2 shadow-md transition-colors hover:bg-white"
+            aria-label="Banner tiếp theo">
             <ChevronRight className="h-5 w-5 text-zinc-700" />
           </button>
 

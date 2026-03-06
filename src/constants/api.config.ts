@@ -1,5 +1,4 @@
-export const BASE_URL =
-import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
+export const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000/api";
 
 export const API_ENDPOINTS = {
   AUTH: {
@@ -14,18 +13,34 @@ export const API_ENDPOINTS = {
   PRODUCTS: {
     LIST: "/api/products/product/active",
     DETAIL: (id: string | number) => `/api/products/product/${id}`,
-    CREATE: "/products",
-    UPDATE: (id: number) => `/products/${id}`,
-    DELETE: (id: number) => `/products/${id}`,
+    CREATE: "/products/product",
+    UPDATE: "/products/product",
+    DELETE: (id: number) => `/products/product/${id}`,
+    ACTIVE: "/products/product/active",
+    INACTIVE: "/products/product/inactive",
     FLASH_SALE: "/api/products/product/active",
     FEATURED: "/api/products/product/active",
   },
   CATEGORIES: {
     LIST: "/api/products/categories",
-    DETAIL: (id: number) => `/categories/${id}`,
-    CREATE: "/categories",
-    UPDATE: (id: number) => `/categories/${id}`,
-    DELETE: (id: number) => `/categories/${id}`,
+    DETAIL: (id: number) => `/products/categories/${id}`,
+    CREATE: "/products/categories",
+    UPDATE: "/products/categories",
+    DELETE: (id: number) => `/products/categories/${id}`,
+  },
+  BRANDS: {
+    LIST: "/products/brands",
+    DETAIL: (id: number) => `/products/brands/${id}`,
+    CREATE: "/products/brands",
+    UPDATE: "/products/brands",
+    DELETE: (id: number) => `/products/brands/${id}`,
+  },
+  PRODUCT_VERSIONS: {
+    LIST: "/products/product-versions",
+    DETAIL: (id: number) => `/products/product-versions/${id}`,
+    CREATE: "/products/product-versions",
+    UPDATE: "/products/product-versions",
+    DELETE: (id: number) => `/products/product-versions/${id}`,
   },
   CART: {
     GET: "/cart",
@@ -42,12 +57,16 @@ export const API_ENDPOINTS = {
     DETAIL: (id: number) => `/orders/${id}`,
     CANCEL: (id: number) => `/orders/${id}/cancel`,
     RETURN: (id: number) => `/orders/${id}/return`,
-    UPDATE_STATUS: (id: number) => `/orders/${id}/status`,
+    UPDATE_STATUS: "/orders",
     ALL: "/admin/orders",
+    BY_USER: (userId: number) => `/orders/user/${userId}`,
   },
   PAYMENTS: {
-    INITIATE: "/payments/initiate",
-    VERIFY: (transactionId: string) => `/payments/verify/${transactionId}`,
+    INITIATE: "/orders/payments/initiate",
+    VERIFY: (transactionId: string) => `/orders/payments/verify/${transactionId}`,
+    ALL: "/orders/payments",
+    BY_STATUS: (status: string) => `/orders/payments/status/${status}`,
+    UPDATE: "/orders/payments",
   },
   USERS: {
     PROFILE: "/users/me",
@@ -56,9 +75,10 @@ export const API_ENDPOINTS = {
     UPLOAD_AVATAR: "/users/me/avatar",
     ADDRESSES: "/users/me/addresses",
     ADDRESS_DETAIL: (id: number) => `/users/me/addresses/${id}`,
+    LIST: "/users",
     ALL: "/admin/users",
     DETAIL: (id: number) => `/admin/users/${id}`,
-    UPDATE_STATUS: (id: number) => `/admin/users/${id}/status`,
+    TOGGLE_ACTIVE: (id: number) => `/admin/users/${id}/toggle-active`,
     UPDATE_ROLE: (id: number) => `/admin/users/${id}/role`,
   },
   REVIEWS: {
@@ -70,13 +90,13 @@ export const API_ENDPOINTS = {
     DELETE: (id: number) => `/admin/reviews/${id}`,
   },
   PROMOTIONS: {
-    LIST: "/promotions",
+    LIST: "/orders/promotions",
     FLASH_SALES: "/promotions/flash-sales",
     VOUCHERS: "/promotions/vouchers",
     VALIDATE_VOUCHER: "/promotions/vouchers/validate",
-    CREATE: "/promotions",
-    UPDATE: (id: number) => `/promotions/${id}`,
-    DELETE: (id: number) => `/promotions/${id}`,
+    CREATE: "/orders/promotions",
+    UPDATE: "/orders/promotions",
+    DELETE: (id: number) => `/orders/promotions/${id}`,
   },
   MEMBERSHIP: {
     INFO: "/membership",

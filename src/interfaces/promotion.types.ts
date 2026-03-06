@@ -1,5 +1,6 @@
 export type VoucherType = "percentage" | "fixed_amount" | "free_shipping";
 export type PromotionType = "flash_sale" | "category_discount" | "bundle" | "voucher";
+export type ApiPromotionType = "MONEY" | "PERCENTAGE" | "BOGO";
 
 export interface Voucher {
   id: number;
@@ -39,4 +40,18 @@ export interface Promotion {
   startAt: string;
   endAt: string;
   isActive: boolean;
+}
+
+export interface ApiPromotion {
+  id: number;
+  code: string;
+  description?: string;
+  type: ApiPromotionType;
+  discountValue: number;
+  maxDiscountValue?: number;
+  minOrderAmount?: number;
+  startDate: string;
+  endDate: string;
+  active: boolean;
+  quantity: number;
 }

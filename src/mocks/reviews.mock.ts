@@ -9,7 +9,8 @@ export const mockReviews: Review[] = [
     authorAvatar: "/images/avatars/customer-1.jpg",
     rating: 5,
     title: "Sạc rất nhanh, pin trâu",
-    content: "Mình dùng sạc cho iPhone 15 Pro Max, sạc rất nhanh từ 0% lên 50% chỉ trong 30 phút. Pin 20000mAh dùng được 3-4 ngày. Rất hài lòng!",
+    content:
+      "Mình dùng sạc cho iPhone 15 Pro Max, sạc rất nhanh từ 0% lên 50% chỉ trong 30 phút. Pin 20000mAh dùng được 3-4 ngày. Rất hài lòng!",
     images: [
       { id: 1, url: "/images/reviews/anker-review-1.jpg" },
       { id: 2, url: "/images/reviews/anker-review-2.jpg" },
@@ -38,7 +39,8 @@ export const mockReviews: Review[] = [
     authorAvatar: "/images/avatars/customer-1.jpg",
     rating: 5,
     title: "Chống ồn đỉnh cao!",
-    content: "Đây là tai nghe chống ồn tốt nhất mình từng dùng. Âm thanh cực kỳ chi tiết, chống ồn mạnh mẽ. Pin trâu 30 tiếng. Đáng mỗi đồng!",
+    content:
+      "Đây là tai nghe chống ồn tốt nhất mình từng dùng. Âm thanh cực kỳ chi tiết, chống ồn mạnh mẽ. Pin trâu 30 tiếng. Đáng mỗi đồng!",
     images: [{ id: 3, url: "/images/reviews/sony-xm5-review.jpg" }],
     helpfulCount: 45,
     isVerifiedPurchase: true,
@@ -51,7 +53,8 @@ export const mockReviews: Review[] = [
     authorName: "Trần Thanh Hà",
     rating: 5,
     title: "Chuột tuyệt vời cho dân văn phòng",
-    content: "Ergonomic rất tốt, dùng cả ngày không mỏi tay. Scroll MagSpeed siêu mượt. Kết nối 3 thiết bị cùng lúc rất tiện.",
+    content:
+      "Ergonomic rất tốt, dùng cả ngày không mỏi tay. Scroll MagSpeed siêu mượt. Kết nối 3 thiết bị cùng lúc rất tiện.",
     images: [],
     helpfulCount: 15,
     isVerifiedPurchase: true,
@@ -64,7 +67,8 @@ export const mockReviews: Review[] = [
     authorName: "Lê Hoàng Nam",
     rating: 4,
     title: "Âm thanh tốt, bass mạnh",
-    content: "Loa JBL Charge 5 bass rất mạnh, âm thanh to rõ ràng. Chống nước IP67 thực sự tốt, mang đi bơi thoải mái. Trừ 1 sao vì hơi nặng.",
+    content:
+      "Loa JBL Charge 5 bass rất mạnh, âm thanh to rõ ràng. Chống nước IP67 thực sự tốt, mang đi bơi thoải mái. Trừ 1 sao vì hơi nặng.",
     images: [{ id: 4, url: "/images/reviews/jbl-review.jpg" }],
     helpfulCount: 12,
     isVerifiedPurchase: true,
@@ -76,7 +80,8 @@ export const mockReviews: Review[] = [
     userId: 7,
     authorName: "Võ Thị Mai",
     rating: 5,
-    content: "Hub UGREEN chất lượng tốt, dùng với MacBook Pro rất ổn. HDMI 4K@60Hz chạy mượt, không bị lag.",
+    content:
+      "Hub UGREEN chất lượng tốt, dùng với MacBook Pro rất ổn. HDMI 4K@60Hz chạy mượt, không bị lag.",
     images: [],
     helpfulCount: 9,
     isVerifiedPurchase: true,
@@ -102,7 +107,8 @@ export const mockReviews: Review[] = [
     authorName: "Bùi Tuấn Kiệt",
     rating: 5,
     title: "Chuột gaming nhẹ nhất!",
-    content: "59g siêu nhẹ, cảm biến 30K chính xác, switch quang bấm rất sướng. Dùng chơi Valorant rank lên hẳn.",
+    content:
+      "59g siêu nhẹ, cảm biến 30K chính xác, switch quang bấm rất sướng. Dùng chơi Valorant rank lên hẳn.",
     images: [{ id: 5, url: "/images/reviews/razer-review.jpg" }],
     helpfulCount: 31,
     isVerifiedPurchase: true,

@@ -10,7 +10,13 @@ export interface Category {
 export interface Brand {
   id: number;
   name: string;
+  description?: string;
   logoUrl?: string;
+}
+
+export interface ProductVersion {
+  id: number;
+  versionName: string;
 }
 
 export interface ProductImage {

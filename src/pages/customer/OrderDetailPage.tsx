@@ -42,14 +42,16 @@ export function OrderDetailPage() {
     try {
       await orderService.cancelOrder(order.id, "Khách hàng hủy đơn");
       toast.success("Đã hủy đơn hàng");
-    } catch (error) {
+    } catch {
       toast.error("Không thể hủy đơn hàng");
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Link to="/orders" className="mb-6 inline-flex items-center gap-1 text-sm text-teal-500 hover:underline">
+      <Link
+        to="/orders"
+        className="mb-6 inline-flex items-center gap-1 text-sm text-teal-500 hover:underline">
         <ArrowLeft className="h-4 w-4" /> Quay lại đơn hàng
       </Link>
 
@@ -65,18 +67,27 @@ export function OrderDetailPage() {
         <div className="space-y-6 lg:col-span-2">
           {/* Status Timeline */}
           <Card>
-            <CardHeader><CardTitle className="text-base">Lịch sử đơn hàng</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Lịch sử đơn hàng</CardTitle>
+            </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {order.statusHistory.map((h, i) => (
                   <div key={i} className="flex gap-3">
                     <div className="flex flex-col items-center">
-                      <CheckCircle className={`h-5 w-5 ${i === 0 ? "text-teal-500" : "text-gray-300"}`} />
-                      {i < order.statusHistory.length - 1 && <div className="h-full w-0.5 bg-gray-200" />}
+                      <CheckCircle
+                        className={`h-5 w-5 ${i === 0 ? "text-teal-500" : "text-gray-300"}`}
+                      />
+                      {i < order.statusHistory.length - 1 && (
+                        <div className="h-full w-0.5 bg-gray-200" />
+                      )}
                     </div>
                     <div>
                       <p className="text-sm font-medium text-zinc-900">{h.note}</p>
-                      <p className="text-xs text-gray-500">{formatDate(h.timestamp)}{h.updatedBy && ` · ${h.updatedBy}`}</p>
+                      <p className="text-xs text-gray-500">
+                        {formatDate(h.timestamp)}
+                        {h.updatedBy && ` · ${h.updatedBy}`}
+                      </p>
                     </div>
                   </div>
                 ))}
@@ -86,14 +97,22 @@ export function OrderDetailPage() {
 
           {/* Items */}
           <Card>
-            <CardHeader><CardTitle className="text-base">Sản phẩm</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Sản phẩm</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-4">
               {order.items.map((item) => (
                 <div key={item.id} className="flex gap-4">
-                  <img src={item.thumbnailUrl} alt={item.productName} className="h-16 w-16 rounded-lg object-cover" />
+                  <img
+                    src={item.thumbnailUrl}
+                    alt={item.productName}
+                    className="h-16 w-16 rounded-lg object-cover"
+                  />
                   <div className="flex-1">
                     <p className="text-sm font-medium text-zinc-900">{item.productName}</p>
-                    <p className="text-xs text-gray-400">{item.variantLabel} × {item.quantity}</p>
+                    <p className="text-xs text-gray-400">
+                      {item.variantLabel} × {item.quantity}
+                    </p>
                   </div>
                   <span className="text-sm font-medium">{formatVND(item.subtotal)}</span>
                 </div>
@@ -105,28 +124,43 @@ export function OrderDetailPage() {
         <div className="space-y-6">
           {/* Shipping */}
           <Card>
-            <CardHeader><CardTitle className="text-base">Giao hàng</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Giao hàng</CardTitle>
+            </CardHeader>
             <CardContent className="text-sm">
               <p className="font-medium text-zinc-900">{order.shippingInfo.recipientName}</p>
               <p className="text-gray-500">{order.shippingInfo.phone}</p>
               <p className="mt-1 text-gray-500">
-                {order.shippingInfo.streetAddress}, {order.shippingInfo.ward}, {order.shippingInfo.district}, {order.shippingInfo.province}
+                {order.shippingInfo.streetAddress}, {order.shippingInfo.ward},{" "}
+                {order.shippingInfo.district}, {order.shippingInfo.province}
               </p>
             </CardContent>
           </Card>
 
           {/* Summary */}
           <Card>
-            <CardHeader><CardTitle className="text-base">Tóm tắt</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base">Tóm tắt</CardTitle>
+            </CardHeader>
             <CardContent className="space-y-2 text-sm">
-              <div className="flex justify-between"><span className="text-gray-500">Tạm tính</span><span>{formatVND(order.subtotal)}</span></div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Tạm tính</span>
+                <span>{formatVND(order.subtotal)}</span>
+              </div>
               {order.discountAmount > 0 && (
-                <div className="flex justify-between text-green-600"><span>Giảm giá</span><span>-{formatVND(order.discountAmount)}</span></div>
+                <div className="flex justify-between text-green-600">
+                  <span>Giảm giá</span>
+                  <span>-{formatVND(order.discountAmount)}</span>
+                </div>
               )}
-              <div className="flex justify-between"><span className="text-gray-500">Phí vận chuyển</span><span>{order.shippingFee === 0 ? "Miễn phí" : formatVND(order.shippingFee)}</span></div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Phí vận chuyển</span>
+                <span>{order.shippingFee === 0 ? "Miễn phí" : formatVND(order.shippingFee)}</span>
+              </div>
               <Separator />
               <div className="flex justify-between text-base font-bold">
-                <span>Tổng cộng</span><span className="text-red-400">{formatVND(order.total)}</span>
+                <span>Tổng cộng</span>
+                <span className="text-red-400">{formatVND(order.total)}</span>
               </div>
               {order.pointsEarned > 0 && (
                 <p className="text-xs text-teal-500">+{order.pointsEarned} điểm thưởng</p>
@@ -135,7 +169,10 @@ export function OrderDetailPage() {
           </Card>
 
           {order.status === "pending" && (
-            <Button variant="outline" className="w-full text-red-500 hover:bg-red-50" onClick={handleCancel}>
+            <Button
+              variant="outline"
+              className="w-full text-red-500 hover:bg-red-50"
+              onClick={handleCancel}>
               Hủy đơn hàng
             </Button>
           )}

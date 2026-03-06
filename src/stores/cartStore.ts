@@ -1,6 +1,6 @@
+import { CART } from "@/constants/app.const";
 import type { CartItem } from "@/interfaces/cart.types";
 import type { Voucher } from "@/interfaces/promotion.types";
-import { CART } from "@/constants/app.const";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -51,16 +51,11 @@ export const useCartStore = create<CartState>()(
 
       addItem: (item) =>
         set((state) => {
-          const existingIndex = state.items.findIndex(
-            (i) => i.variantId === item.variantId,
-          );
+          const existingIndex = state.items.findIndex((i) => i.variantId === item.variantId);
           if (existingIndex >= 0) {
             const newItems = [...state.items];
             const existing = newItems[existingIndex];
-            const newQty = Math.min(
-              existing.quantity + item.quantity,
-              CART.MAX_QUANTITY_PER_ITEM,
-            );
+            const newQty = Math.min(existing.quantity + item.quantity, CART.MAX_QUANTITY_PER_ITEM);
             newItems[existingIndex] = {
               ...existing,
               quantity: newQty,
@@ -83,9 +78,10 @@ export const useCartStore = create<CartState>()(
               ? {
                   ...i,
                   quantity: Math.min(Math.max(1, quantity), CART.MAX_QUANTITY_PER_ITEM),
-                  subtotal: i.variant.price * Math.min(Math.max(1, quantity), CART.MAX_QUANTITY_PER_ITEM),
+                  subtotal:
+                    i.variant.price * Math.min(Math.max(1, quantity), CART.MAX_QUANTITY_PER_ITEM),
                 }
-              : i,
+              : i
           ),
         })),
 
@@ -109,8 +105,8 @@ export const useCartStore = create<CartState>()(
         items: state.items,
         appliedVoucher: state.appliedVoucher,
       }),
-    },
-  ),
+    }
+  )
 );
 
 export function useCartTotals() {

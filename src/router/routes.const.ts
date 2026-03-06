@@ -24,10 +24,13 @@ export const ROUTES = {
   ADMIN_PRODUCT_CREATE: "/admin/products/create",
   ADMIN_PRODUCT_EDIT: "/admin/products/:id/edit",
   ADMIN_CATEGORIES: "/admin/categories",
+  ADMIN_BRANDS: "/admin/brands",
   ADMIN_ORDERS: "/admin/orders",
   ADMIN_ORDER_DETAIL: "/admin/orders/:orderId",
   ADMIN_USERS: "/admin/users",
   ADMIN_USER_DETAIL: "/admin/users/:userId",
+  ADMIN_EMPLOYEES: "/admin/employees",
+  ADMIN_EMPLOYEE_DETAIL: "/admin/employees/:employeeId",
   ADMIN_PROMOTIONS: "/admin/promotions",
   ADMIN_REPORTS: "/admin/reports",
 
@@ -35,8 +38,12 @@ export const ROUTES = {
   STAFF_DASHBOARD: "/staff/dashboard",
   STAFF_ORDERS: "/staff/orders",
   STAFF_ORDER_DETAIL: "/staff/orders/:orderId",
-  STAFF_PAYMENTS: "/staff/payments",
-  STAFF_FEEDBACK: "/staff/feedback",
+  STAFF_PRODUCTS: "/staff/products",
+  STAFF_BRANDS: "/staff/brands",
+  STAFF_USERS: "/staff/users",
+  // Hidden temporarily — can be unblocked when needed
+  // STAFF_PAYMENTS: "/staff/payments",
+  // STAFF_FEEDBACK: "/staff/feedback",
 
   UNAUTHORIZED: "/401",
   FORBIDDEN: "/403",

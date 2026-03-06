@@ -6,7 +6,10 @@ export interface CartItem {
   productId: number;
   variantId: number;
   product: Pick<Product, "id" | "slug" | "name" | "thumbnailUrl">;
-  variant: Pick<ProductVariant, "id" | "sku" | "color" | "size" | "price" | "originalPrice" | "stockQuantity">;
+  variant: Pick<
+    ProductVariant,
+    "id" | "sku" | "color" | "size" | "price" | "originalPrice" | "stockQuantity"
+  >;
   quantity: number;
   subtotal: number;
 }

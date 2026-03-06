@@ -1,8 +1,8 @@
-import { useWishlistStore } from "@/stores/wishlistStore";
-import { wishlistService } from "@/services/wishlistService";
 import { useMutationHandler } from "@/hooks/useMutationHandler";
-import { useQuery } from "@tanstack/react-query";
+import { wishlistService } from "@/services/wishlistService";
 import { useAuthStore } from "@/stores/authStore";
+import { useWishlistStore } from "@/stores/wishlistStore";
+import { useQuery } from "@tanstack/react-query";
 
 export function useWishlist() {
   const store = useWishlistStore();

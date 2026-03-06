@@ -1,5 +1,4 @@
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
@@ -9,19 +8,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { UserRole } from "@/interfaces/user.types";
 import { userService } from "@/services/userService";
 import { formatDate } from "@/utils/formatDate";
 import { useQuery } from "@tanstack/react-query";
-import { Eye, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
-export function UserManagerPage() {
+const roleLabels: Record<UserRole, string> = {
+  guest: "Khách vãng lai",
+  customer: "Khách hàng",
+  staff: "Nhân viên",
+  admin: "Quản trị viên",
+};
+
+export function StaffUserManagerPage() {
   const [search, setSearch] = useState("");
   const [roleFilter, setRoleFilter] = useState("all");
 
   const { data: users, isLoading } = useQuery({
-    queryKey: ["admin", "users"],
+    queryKey: ["staff", "users"],
     queryFn: userService.getUsers,
   });
 
@@ -36,13 +42,13 @@ export function UserManagerPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-zinc-900">Quản lý khách hàng</h1>
+      <h1 className="text-2xl font-bold text-zinc-900">Người dùng</h1>
 
       <div className="flex flex-wrap gap-4">
         <div className="relative max-w-sm flex-1">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
           <Input
-            placeholder="Tìm kiếm khách hàng..."
+            placeholder="Tìm kiếm người dùng..."
             className="pl-10"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -56,7 +62,6 @@ export function UserManagerPage() {
             <SelectItem value="all">Tất cả</SelectItem>
             <SelectItem value="customer">Khách hàng</SelectItem>
             <SelectItem value="staff">Nhân viên</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -72,14 +77,13 @@ export function UserManagerPage() {
                   <th className="px-4 py-3 font-medium text-gray-500">Vai trò</th>
                   <th className="px-4 py-3 font-medium text-gray-500">Trạng thái</th>
                   <th className="px-4 py-3 font-medium text-gray-500">Ngày tham gia</th>
-                  <th className="px-4 py-3 text-right font-medium text-gray-500">Thao tác</th>
                 </tr>
               </thead>
               <tbody>
                 {isLoading
                   ? Array.from({ length: 3 }).map((_, i) => (
                       <tr key={i}>
-                        <td colSpan={6} className="px-4 py-3">
+                        <td colSpan={5} className="px-4 py-3">
                           <div className="h-10 animate-pulse rounded bg-gray-100" />
                         </td>
                       </tr>
@@ -89,9 +93,7 @@ export function UserManagerPage() {
                         <td className="px-4 py-3 font-medium text-zinc-900">{user.fullName}</td>
                         <td className="px-4 py-3 text-gray-600">{user.email}</td>
                         <td className="px-4 py-3">
-                          <Badge variant="outline" className="capitalize">
-                            {user.role}
-                          </Badge>
+                          <Badge variant="outline">{roleLabels[user.role] ?? user.role}</Badge>
                         </td>
                         <td className="px-4 py-3">
                           <Badge
@@ -104,15 +106,15 @@ export function UserManagerPage() {
                           </Badge>
                         </td>
                         <td className="px-4 py-3 text-gray-400">{formatDate(user.createdAt)}</td>
-                        <td className="px-4 py-3 text-right">
-                          <Button variant="ghost" size="icon" className="h-8 w-8" asChild>
-                            <Link to={`/admin/users/${user.id}`}>
-                              <Eye className="h-3.5 w-3.5" />
-                            </Link>
-                          </Button>
-                        </td>
                       </tr>
                     ))}
+                {!isLoading && (!filtered || filtered.length === 0) && (
+                  <tr>
+                    <td colSpan={5} className="px-4 py-8 text-center text-gray-400">
+                      Không tìm thấy người dùng nào
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>

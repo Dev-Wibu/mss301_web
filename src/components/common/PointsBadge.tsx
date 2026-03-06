@@ -19,9 +19,7 @@ export function PointsBadge({ points, size = "md" }: PointsBadgeProps) {
   };
 
   return (
-    <div
-      className={`inline-flex items-center font-medium text-yellow-600 ${sizeClasses[size]}`}
-    >
+    <div className={`inline-flex items-center font-medium text-yellow-600 ${sizeClasses[size]}`}>
       <Coins className={iconSize[size]} />
       <span>{points.toLocaleString("vi-VN")} điểm</span>
     </div>

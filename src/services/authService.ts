@@ -1,8 +1,8 @@
+import { API_ENDPOINTS } from "@/constants/api.config";
 import { USE_MOCK_API } from "@/constants/app.const";
-import { mockAdmin, mockCustomer, mockStaff } from "@/mocks/users.mock";
 import type { User } from "@/interfaces/user.types";
 import { apiClient } from "@/lib/api";
-import { API_ENDPOINTS } from "@/constants/api.config";
+import { mockAdmin, mockCustomer, mockStaff } from "@/mocks/users.mock";
 
 interface LoginRequest {
   email: string;

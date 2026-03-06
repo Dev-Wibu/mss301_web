@@ -38,9 +38,8 @@ export function MembershipPage() {
   if (!membership) return null;
 
   const tier = tierConfig[membership.tier];
-  const progressPercent = tier.pointsNeeded > 0
-    ? Math.min(100, (membership.totalEarned / tier.pointsNeeded) * 100)
-    : 100;
+  const progressPercent =
+    tier.pointsNeeded > 0 ? Math.min(100, (membership.totalEarned / tier.pointsNeeded) * 100) : 100;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -52,7 +51,8 @@ export function MembershipPage() {
             <Badge className={`${tier.color} text-white`}>{tier.label}</Badge>
             <PointsBadge points={membership.currentPoints} size="lg" />
             <p className="text-sm text-gray-500">
-              {membership.currentPoints} điểm = {(membership.currentPoints * 1000).toLocaleString("vi-VN")}đ giảm giá
+              {membership.currentPoints} điểm ={" "}
+              {(membership.currentPoints * 1000).toLocaleString("vi-VN")}đ giảm giá
             </p>
             {tier.next && (
               <div className="w-full max-w-xs">
@@ -62,7 +62,8 @@ export function MembershipPage() {
                 </div>
                 <Progress value={progressPercent} className="h-2" />
                 <p className="mt-1 text-center text-xs text-gray-400">
-                  Còn {(tier.pointsNeeded - membership.totalEarned).toLocaleString("vi-VN")} điểm để lên hạng
+                  Còn {(tier.pointsNeeded - membership.totalEarned).toLocaleString("vi-VN")} điểm để
+                  lên hạng
                 </p>
               </div>
             )}
@@ -75,20 +76,26 @@ export function MembershipPage() {
         </Card>
 
         <Card>
-          <CardHeader><CardTitle className="text-base">Thống kê</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-base">Thống kê</CardTitle>
+          </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex items-center gap-3">
               <TrendingUp className="h-5 w-5 text-green-500" />
               <div>
                 <p className="text-sm text-gray-500">Tổng tích lũy</p>
-                <p className="font-bold text-zinc-900">{membership.totalEarned.toLocaleString("vi-VN")} điểm</p>
+                <p className="font-bold text-zinc-900">
+                  {membership.totalEarned.toLocaleString("vi-VN")} điểm
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <TrendingDown className="h-5 w-5 text-orange-500" />
               <div>
                 <p className="text-sm text-gray-500">Đã sử dụng</p>
-                <p className="font-bold text-zinc-900">{membership.totalRedeemed.toLocaleString("vi-VN")} điểm</p>
+                <p className="font-bold text-zinc-900">
+                  {membership.totalRedeemed.toLocaleString("vi-VN")} điểm
+                </p>
               </div>
             </div>
           </CardContent>
@@ -97,7 +104,9 @@ export function MembershipPage() {
 
       {/* Transaction History */}
       <Card className="mt-6">
-        <CardHeader><CardTitle className="text-base">Lịch sử giao dịch</CardTitle></CardHeader>
+        <CardHeader>
+          <CardTitle className="text-base">Lịch sử giao dịch</CardTitle>
+        </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -120,8 +129,10 @@ export function MembershipPage() {
                       )}
                     </td>
                     <td className="py-3 text-gray-600">{tx.description}</td>
-                    <td className={`py-3 text-right font-medium ${tx.type === "earned" ? "text-green-600" : "text-orange-500"}`}>
-                      {tx.type === "earned" ? "+" : "-"}{tx.points}
+                    <td
+                      className={`py-3 text-right font-medium ${tx.type === "earned" ? "text-green-600" : "text-orange-500"}`}>
+                      {tx.type === "earned" ? "+" : "-"}
+                      {tx.points}
                     </td>
                     <td className="py-3 text-right text-gray-400">{formatDate(tx.createdAt)}</td>
                   </tr>

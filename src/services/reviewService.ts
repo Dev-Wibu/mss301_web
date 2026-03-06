@@ -1,12 +1,12 @@
-import { USE_MOCK_API } from "@/constants/app.const";
-import { mockReviews } from "@/mocks/reviews.mock";
-import type { Review, RatingBreakdown } from "@/interfaces/review.types";
-import { apiClient } from "@/lib/api";
 import { API_ENDPOINTS } from "@/constants/api.config";
+import { USE_MOCK_API } from "@/constants/app.const";
+import type { RatingBreakdown, Review } from "@/interfaces/review.types";
+import { apiClient } from "@/lib/api";
+import { mockReviews } from "@/mocks/reviews.mock";
 
 export const reviewService = {
   getProductReviews: async (
-    productId: number,
+    productId: number
   ): Promise<{ reviews: Review[]; breakdown: RatingBreakdown }> => {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 400));

@@ -24,8 +24,7 @@ export function CartItemRow({ item, onUpdateQty, onRemove }: CartItemProps) {
       <div className="flex-1 space-y-1">
         <Link
           to={`/products/${item.product.slug}`}
-          className="text-sm font-medium text-zinc-900 hover:text-teal-500"
-        >
+          className="text-sm font-medium text-zinc-900 hover:text-teal-500">
           {item.product.name}
         </Link>
         {(item.variant.color || item.variant.size) && (
@@ -34,9 +33,7 @@ export function CartItemRow({ item, onUpdateQty, onRemove }: CartItemProps) {
           </p>
         )}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-red-400">
-            {formatVND(item.variant.price)}
-          </span>
+          <span className="text-sm font-medium text-red-400">{formatVND(item.variant.price)}</span>
           {item.variant.originalPrice > item.variant.price && (
             <span className="text-xs text-gray-400 line-through">
               {formatVND(item.variant.originalPrice)}
@@ -52,16 +49,13 @@ export function CartItemRow({ item, onUpdateQty, onRemove }: CartItemProps) {
       />
 
       <div className="w-24 text-right">
-        <span className="text-sm font-bold text-zinc-900">
-          {formatVND(item.subtotal)}
-        </span>
+        <span className="text-sm font-bold text-zinc-900">{formatVND(item.subtotal)}</span>
       </div>
 
       <button
         onClick={() => onRemove(item.id)}
         className="text-gray-400 hover:text-red-400"
-        aria-label="Xóa sản phẩm"
-      >
+        aria-label="Xóa sản phẩm">
         <Trash2 className="h-4 w-4" />
       </button>
     </div>
