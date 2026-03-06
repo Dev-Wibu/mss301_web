@@ -1,10 +1,10 @@
 import { API_ENDPOINTS } from "@/constants/api.config";
 import { PAGINATION, USE_MOCK_API } from "@/constants/app.const";
 import type {
-    Brand,
-    Product,
-    ProductListResponse,
-    ProductVersion,
+  Brand,
+  Product,
+  ProductListResponse,
+  ProductVersion,
 } from "@/interfaces/product.types";
 import { apiClient } from "@/lib/api";
 import { mockProducts } from "@/mocks/products.mock";

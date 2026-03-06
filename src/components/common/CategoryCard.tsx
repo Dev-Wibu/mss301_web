@@ -1,3 +1,4 @@
+import type { Category } from "@/interfaces/product.types";
 import {
   BatteryCharging,
   Headphones,
@@ -38,7 +39,7 @@ const getCategoryIcon = (categoryName?: string) => {
   return <Package className="h-8 w-8" />;
 };
 
-export function CategoryCard({ category }: { category: any }) {
+export function CategoryCard({ category }: { category: Category }) {
   // Thay thế đường dẫn link cho phù hợp (dùng id thay vì slug)
   return (
     <Link

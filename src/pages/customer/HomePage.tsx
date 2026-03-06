@@ -67,7 +67,7 @@ export function HomePage() {
 
   const handleAddToCart = (product: Product) => {
     addItem({
-      id: Date.now(),
+      id: product.id,
       productId: product.id,
       variantId: product.id,
       product: {
