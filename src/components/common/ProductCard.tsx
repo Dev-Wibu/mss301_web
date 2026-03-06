@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Product } from "@/interfaces/product.types";
@@ -25,9 +24,8 @@ export function ProductCard({
       {/* ĐÃ SỬA: Dùng product.id thay vì slug vì API chi tiết dùng ID */}
       <Link to={`/products/${product.id}`}>
         <div className="relative aspect-square overflow-hidden bg-gray-100">
-          {/* ĐÃ SỬA: thumbnailUrl -> imgUrl */}
           <img
-            src={product.imgUrl}
+            src={product.thumbnailUrl}
             alt={product.name}
             className="h-full w-full object-cover transition-transform group-hover:scale-105"
             loading="lazy"
@@ -56,22 +54,27 @@ export function ProductCard({
       )}
 
       <CardContent className="space-y-2 p-4">
-        {/* ĐÃ SỬA: product.brand.name -> product.brandName */}
-        <p className="text-xs text-gray-400">{product.brandName}</p>
+        <p className="text-xs text-gray-400">{product.brand.name}</p>
         <Link to={`/products/${product.id}`}>
           <h3 className="text-sm font-medium text-zinc-900 transition-colors hover:text-teal-500">
             {truncateText(product.name, 50)}
           </h3>
         </Link>
 
-        {/* LƯU Ý: API mới chưa có rating (đánh giá) và soldCount (đã bán). 
+        {/* LƯU Ý: API mới chưa có rating (đánh giá) và soldCount (đã bán).
             Mình tạm để mặc định là 5 sao và hiển thị Số lượng tồn kho (quantity) thay cho số đã bán */}
         <div className="flex items-center gap-1">
           <Star className="h-3.5 w-3.5 fill-yellow-500 text-yellow-500" />
           <span className="text-xs text-gray-500">5.0 (0)</span>
-          <span className="text-xs text-gray-400">| Kho: {product.quantity}</span>
+          <span className="text-xs text-gray-400">
+            | Kho: {product.variants[0]?.stockQuantity ?? 0}
+          </span>
         </div>
-        <PriceDisplay price={product.price} originalPrice={product.price} size="sm" />
+        <PriceDisplay
+          price={product.defaultPrice}
+          originalPrice={product.defaultOriginalPrice}
+          size="sm"
+        />
 
         {onAddToCart && (
           <Button

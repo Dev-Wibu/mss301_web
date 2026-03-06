@@ -3,6 +3,7 @@ import { ProductCard } from "@/components/common/ProductCard";
 import { ProductCardSkeleton } from "@/components/common/ProductCardSkeleton";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import type { Product } from "@/interfaces/product.types";
 import { ROUTES } from "@/router/routes.const";
 import { categoryService } from "@/services/categoryService";
 import { productService } from "@/services/productService";
@@ -13,8 +14,6 @@ import { ArrowRight, Zap } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
-import { ROUTES } from "@/router/routes.const";
-import type { Product } from "@/interfaces/product.types";
 
 function CountdownTimer({ endAt }: { endAt: string }) {
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
@@ -68,26 +67,26 @@ export function HomePage() {
 
   const handleAddToCart = (product: Product) => {
     addItem({
-      id: variant.id,
+      id: Date.now(),
       productId: product.id,
       variantId: product.id,
       product: {
         id: product.id,
         slug: product.id.toString(),
         name: product.name,
-        thumbnailUrl: product.imgUrl,
+        thumbnailUrl: product.thumbnailUrl,
       },
       variant: {
         id: product.id,
         sku: `SKU-${product.id}`,
         color: "Mặc định",
         size: "Mặc định",
-        price: product.price,
-        originalPrice: product.price,
-        stockQuantity: product.quantity,
+        price: product.defaultPrice,
+        originalPrice: product.defaultOriginalPrice,
+        stockQuantity: product.variants[0]?.stockQuantity ?? 0,
       },
       quantity: 1,
-      subtotal: product.price,
+      subtotal: product.defaultPrice,
     });
     toast.success("Đã thêm vào giỏ hàng!");
   };

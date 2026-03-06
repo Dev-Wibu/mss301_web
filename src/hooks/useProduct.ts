@@ -23,7 +23,7 @@ export function useProducts(params: UseProductsParams = {}) {
 export function useProductDetail(slug: string) {
   return useQuery<Product>({
     queryKey: ["products", "detail", slug],
-    queryFn: () => productService.getProductBySlug(slug),
+    queryFn: () => productService.getProductById(slug),
     enabled: !!slug,
   });
 }

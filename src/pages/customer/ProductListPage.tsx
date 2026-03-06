@@ -114,7 +114,7 @@ export function ProductListPage() {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAddToCart={(vid) => handleAddToCart(product, vid)}
+                onAddToCart={() => handleAddToCart(product, product.variants[0]?.id ?? 0)}
                 isWishlisted={isInWishlist(product.id)}
                 onToggleWishlist={toggleWishlist}
               />

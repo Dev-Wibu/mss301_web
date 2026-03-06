@@ -51,7 +51,7 @@ export function ProductFormPage() {
 
   const { data: existingProduct } = useQuery({
     queryKey: ["products", "detail", id],
-    queryFn: () => productService.getProductBySlug(id!),
+    queryFn: () => productService.getProductById(id!),
     enabled: isEdit,
   });
 

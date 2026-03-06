@@ -81,7 +81,11 @@ export function FlashSaleSection({
               <div key={product.id} className="w-56 shrink-0">
                 <ProductCard
                   product={product}
-                  onAddToCart={onAddToCart ? (vid) => onAddToCart(product, vid) : undefined}
+                  onAddToCart={
+                    onAddToCart
+                      ? () => onAddToCart(product, product.variants[0]?.id ?? 0)
+                      : undefined
+                  }
                   isWishlisted={isWishlisted?.(product.id)}
                   onToggleWishlist={onToggleWishlist}
                 />

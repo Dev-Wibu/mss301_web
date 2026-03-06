@@ -1,10 +1,10 @@
 import { API_ENDPOINTS } from "@/constants/api.config";
 import { PAGINATION, USE_MOCK_API } from "@/constants/app.const";
 import type {
-  Brand,
-  Product,
-  ProductListResponse,
-  ProductVersion,
+    Brand,
+    Product,
+    ProductListResponse,
+    ProductVersion,
 } from "@/interfaces/product.types";
 import { apiClient } from "@/lib/api";
 import { mockProducts } from "@/mocks/products.mock";
@@ -40,7 +40,7 @@ export const productService = {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 500));
       // Ép kiểu tạm thời để tránh lỗi TypeScript khi mock data cũ không khớp interface mới
-      allProducts = [...mockProducts].filter((p) => p.active) as unknown as Product[];
+      allProducts = [...mockProducts].filter((p) => p.isActive);
     } else {
       // 1. Gọi API lấy toàn bộ sản phẩm active
       const response = await apiClient.get<Product[]>(API_ENDPOINTS.PRODUCTS.LIST);
@@ -57,19 +57,19 @@ export const productService = {
     }
     // Lọc theo khoảng giá
     if (params.minPrice !== undefined) {
-      filtered = filtered.filter((p) => p.price >= params.minPrice!);
+      filtered = filtered.filter((p) => p.defaultPrice >= params.minPrice!);
     }
     if (params.maxPrice !== undefined) {
-      filtered = filtered.filter((p) => p.price <= params.maxPrice!);
+      filtered = filtered.filter((p) => p.defaultPrice <= params.maxPrice!);
     }
     // Sắp xếp
     if (params.sortBy) {
       switch (params.sortBy) {
         case "price_asc":
-          filtered.sort((a, b) => a.price - b.price);
+          filtered.sort((a, b) => a.defaultPrice - b.defaultPrice);
           break;
         case "price_desc":
-          filtered.sort((a, b) => b.price - a.price);
+          filtered.sort((a, b) => b.defaultPrice - a.defaultPrice);
           break;
       }
     }
@@ -90,33 +90,21 @@ export const productService = {
     };
   },
 
-  // Sửa tên từ getProductBySlug thành getProductById cho đúng với API BE
   getProductById: async (id: string | number): Promise<Product> => {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 300));
       const product = mockProducts.find((p) => p.id === Number(id));
       if (!product) throw new Error("Sản phẩm không tồn tại");
-      return product as unknown as Product;
+      return product;
     }
     const response = await apiClient.get<Product>(API_ENDPOINTS.PRODUCTS.DETAIL(String(id)));
     return response.data;
   },
 
-  getProductById: async (id: number): Promise<Product> => {
-    if (USE_MOCK_API) {
-      await new Promise((r) => setTimeout(r, 300));
-      const product = mockProducts.find((p) => p.id === id);
-      if (!product) throw new Error("Sản phẩm không tồn tại");
-      return product;
-    }
-    const response = await apiClient.get(API_ENDPOINTS.PRODUCTS.DETAIL_BY_ID(id));
-    return response.data.data;
-  },
-
   getFlashSaleProducts: async (): Promise<Product[]> => {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 300));
-      return mockProducts.filter((p) => p.active) as unknown as Product[];
+      return mockProducts.filter((p) => p.isActive);
     }
     const response = await apiClient.get<Product[]>(API_ENDPOINTS.PRODUCTS.FLASH_SALE);
     return response.data;
@@ -125,7 +113,7 @@ export const productService = {
   getFeaturedProducts: async (): Promise<Product[]> => {
     if (USE_MOCK_API) {
       await new Promise((r) => setTimeout(r, 300));
-      return mockProducts.filter((p) => p.active).slice(0, 8) as unknown as Product[];
+      return mockProducts.filter((p) => p.isActive).slice(0, 8);
     }
     const response = await apiClient.get<Product[]>(API_ENDPOINTS.PRODUCTS.FEATURED);
     // Trả về 8 sản phẩm đầu tiên cho nổi bật
